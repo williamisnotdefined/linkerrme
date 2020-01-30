@@ -14,7 +14,7 @@
 
 -   Background?
 -   Links templates
--         Image Support
+-   Image Support
 -   Social networks
 -   Dark Mode / Light Mode
 
