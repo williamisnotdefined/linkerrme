@@ -14,12 +14,14 @@
 
 -   Background?
 -   Links templates
-    Image Support
--   Social networks \* Dark Mode / Light Mode
+-         Image Support
+-   Social networks
+-   Dark Mode / Light Mode
 
 -   Custom colors / Hover colors (THE SAME TO ALL)
-    _ Text color
-    _ Border color \* Social networks
+
+    -   Text color
+    -   Border color \* Social networks
 
 -   Sensitive content advice (BOTH) - Before show links - On try access
 
