@@ -1,28 +1,28 @@
-# Adonis API application
+# LinkerrMe
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+-   Login - Instagram - Google
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+-   Page Templates
+    Google Fonts
 
-## Setup
+        	Statics:
+        		- Avatar
+        		- Name
 
-Use the adonis command to install the blueprint
+        	Dynamics:
+        		- Background?
+        		- Links template
+        			- Image Support
+        		- Social networks
+        			- Dark Mode / Light Mode
 
-```bash
-adonis new yardstick --api-only
-```
+        		- Custom colors / Hover colors (THE SAME TO ALL)
+        			- Text color
+        			- Border color
+        			- Social networks
 
-or manually clone the repo and then run `npm install`.
+-   Sensitive content advice (BOTH) - Before show links - On try access
 
+Future - Video background - Animate on show
 
-### Migrations
-
-Run the following command to run startup migrations.
-
-```js
-adonis migration:run
-```
+tabela theme config!
