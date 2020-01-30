@@ -17,5 +17,23 @@
 const Route = use('Route')
 
 Route.get('/', () => {
+    const x = 1
     return { greeting: 'Hello world in JSON' }
+})
+
+Route.get('/google', async ({ response, ally }) => {
+    const url = await ally.driver('google').getRedirectUrl()
+    // await ally.driver('google').redirect()
+    return response.status(200).send({
+        url
+    })
+})
+
+Route.get('/authenticated/google', async ({ response, ally }) => {
+    const googleUser = await ally.driver('google').getUser()
+
+    return response.status(200).send({
+        user: googleUser
+    })
+    // await ally.driver('google').redirect()
 })

@@ -18,7 +18,8 @@ const providers = [
     '@adonisjs/lucid/providers/LucidProvider',
     'adonis-acl/providers/AclProvider',
     'adonis-bumblebee/providers/BumblebeeProvider',
-    '@adonisjs/validator/providers/ValidatorProvider'
+    '@adonisjs/validator/providers/ValidatorProvider',
+    '@adonisjs/ally/providers/AllyProvider'
 ]
 
 /*

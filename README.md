@@ -29,3 +29,5 @@
 Future - Video background - Animate on show
 
 tabela theme config!
+
+-   Não esquecer do CORS quando for subir para live
