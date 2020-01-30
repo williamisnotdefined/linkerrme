@@ -21,7 +21,8 @@
 -   Custom colors / Hover colors (THE SAME TO ALL)
 
     -   Text color
-    -   Border color \* Social networks
+    -   Border color
+    -   Social networks
 
 -   Sensitive content advice (BOTH) - Before show links - On try access
 
