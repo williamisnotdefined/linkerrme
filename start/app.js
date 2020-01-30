@@ -19,7 +19,8 @@ const providers = [
     'adonis-acl/providers/AclProvider',
     'adonis-bumblebee/providers/BumblebeeProvider',
     '@adonisjs/validator/providers/ValidatorProvider',
-    '@adonisjs/ally/providers/AllyProvider'
+    '@adonisjs/ally/providers/AllyProvider',
+    '@adonisjs/drive/providers/DriveProvider'
 ]
 
 /*
