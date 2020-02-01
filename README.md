@@ -33,7 +33,7 @@ https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 
 -   Migrations - OK
 -   Models / Hooks (needded?) - OK
--   Factories / Seeders
+-   Factories / Seeders - OK
 -   Transformers
 -   Auth
 -   Router / Controllers / Helpers (str_rand por exemplo) / Services / Middlewares / Validators
