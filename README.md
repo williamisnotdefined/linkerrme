@@ -25,7 +25,7 @@
 
 -   fix CORS on deploy
 
-## dev planejamento
+## dev todo list
 
 https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 
