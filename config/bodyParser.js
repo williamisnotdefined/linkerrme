@@ -101,7 +101,7 @@ module.exports = {
     | Also this value is considered when `autoProcess` is set to true.
     |
     */
-        maxSize: '20mb',
+        maxSize: '10mb',
 
         /*
     |--------------------------------------------------------------------------

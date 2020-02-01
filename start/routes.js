@@ -17,7 +17,7 @@ const Helpers = use('Helpers')
 const Axios = use('axios')
 const Sharp = use('sharp')
 const FileType = use('file-type')
-const ReadChunk = use('read-chunk')
+
 //import axios from 'axios'
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */

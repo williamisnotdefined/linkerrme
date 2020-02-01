@@ -1,33 +1,27 @@
 # LinkerrMe
 
--   Login - Instagram - Google
-
+-   Google Login
 -   Page Templates
--   Google Fonts
+-   Google Fonts (optional)
 
-## Statics:
+## Ideas:
 
--   Avatar
--   Name
-
-## Dynamics:
-
--   Background?
--   Links templates
--   Image Support
 -   Social networks
--   Dark Mode / Light Mode
 
--   Custom colors / Hover colors (THE SAME TO ALL)
+*   Custom colors / Hover colors (THE SAME TO ALL)
 
     -   Text color
     -   Border color
     -   Social networks
 
--   Sensitive content advice (BOTH) - Before show links - On try access
+*   Sensitive content advice (BOTH) - Before show links - On try access
 
-Future - Video background - Animate on show
+## Future
 
-tabela theme config!
+-   Video background
+-   Animate on show
+-   Dark Mode / Light Mode
+
+## onDeploy
 
 -   Não esquecer do CORS quando for subir para live
