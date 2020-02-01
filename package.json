@@ -31,7 +31,10 @@
         "adonis-acl": "^1.1.1",
         "adonis-bumblebee": "^2.1.0",
         "aws-sdk": "^2.610.0",
-        "mysql": "^2.18.1"
+        "axios": "^0.19.2",
+        "file-type": "^13.1.2",
+        "mysql": "^2.18.1",
+        "sharp": "^0.24.0"
     },
     "devDependencies": {
         "prettier": "^1.19.1"

@@ -13,6 +13,13 @@
 |
 */
 
+const Helpers = use('Helpers')
+const Axios = use('axios')
+const Sharp = use('sharp')
+const FileType = use('file-type')
+const ReadChunk = use('read-chunk')
+//import axios from 'axios'
+
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
@@ -24,13 +31,26 @@ Route.get('/', () => {
 Route.get('/google', async ({ response, ally }) => {
     const url = await ally.driver('google').getRedirectUrl()
     // await ally.driver('google').redirect()
-    return response.status(200).send({
-        url
-    })
+    return response.status(200).send(url)
 })
 
 Route.get('/authenticated/google', async ({ response, ally }) => {
     const googleUser = await ally.driver('google').getUser()
+    const avatar = googleUser.getAvatar()
+    // googleUser.avatar
+    const { status, data: avatarFile } = await Axios({
+        url: avatar,
+        method: 'GET',
+        responseType: 'arraybuffer'
+    })
+
+    // check status 200!
+
+    const { ext } = await FileType.fromBuffer(avatarFile)
+
+    await Sharp(avatarFile)
+        .resize(200, 200)
+        .toFile(`${Helpers.tmpPath('/avatar')}/avatar-${Date.now()}.${ext}`)
 
     return response.status(200).send({
         user: googleUser
