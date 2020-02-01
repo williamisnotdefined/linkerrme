@@ -7,7 +7,10 @@ class SocialLinkSchema extends Schema {
     up() {
         this.create('social_links', table => {
             table.increments()
-            table.string('name', 150).notNullable()
+            table
+                .string('name', 150)
+                .unique()
+                .notNullable()
             table.timestamps()
         })
     }

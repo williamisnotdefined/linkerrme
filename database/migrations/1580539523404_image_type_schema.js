@@ -7,7 +7,10 @@ class ImageTypeSchema extends Schema {
     up() {
         this.create('image_types', table => {
             table.increments()
-            table.string('name', 50).notNullable()
+            table
+                .string('name', 50)
+                .unique()
+                .notNullable()
             table.timestamps()
         })
     }
