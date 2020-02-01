@@ -32,14 +32,13 @@ Factory.blueprint('App/Models/Page', (faker, i, data) => {
 
 Factory.blueprint('App/Models/Link', (faker, i, data) => {
     return {
-        text: faker.name({ prefix: true }),
+        text: faker.username(),
         url: faker.url(),
-        template_id: data.template_id,
         page_id: data.page_id
     }
 })
 
-Factory.blueprint('App/Models/PageSocialLinks', (faker, i, data) => {
+Factory.blueprint('App/Models/PageSocialLink', (faker, i, data) => {
     return {
         url: faker.url(),
         social_link_id: data.social_link_id,

@@ -12,11 +12,13 @@
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
+const Role = use('Role')
+const User = use('App/Models/User')
 
 class UserSeeder {
     async run() {
         const userRole = await Role.findBy('slug', 'user')
-        const users = await Factory.model('App/Models/User').createMany(20)
+        const users = await Factory.model('App/Models/User').createMany(5)
 
         await Promise.all(
             // adiciona para cada usuário criado a Role de 'client' (isso é um relacionamento)
