@@ -32,7 +32,7 @@ https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 -   atenção: rotas devem ter grupos admin / site (acho que site não precisa de grupo, só o admin)
 
 -   Migrations - OK
--   Models / Hooks (needded?)
+-   Models / Hooks (needded?) - OK
 -   Factories / Seeders
 -   Transformers
 -   Auth
