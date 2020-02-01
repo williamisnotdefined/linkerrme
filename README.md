@@ -29,6 +29,8 @@
 
 https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 
+-   atenção: rotas devem ter grupos admin / site (acho que site não precisa de grupo, só o admin)
+
 -   Migrations - OK
 -   Models / Hooks (needded?)
 -   Factories / Seeders
@@ -36,3 +38,4 @@ https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 -   Auth
 -   Router / Controllers / Helpers (str_rand por exemplo) / Services / Middlewares / Validators
 -   ExceptionHandler
+-   error_log (email only) / email package

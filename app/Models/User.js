@@ -14,17 +14,13 @@ class User extends Model {
          * A hook to hash the user password before saving
          * it to the database.
          */
-        this.addHook('beforeSave', async userInstance => {
-            if (userInstance.dirty.password) {
-                userInstance.password = await Hash.make(userInstance.password)
-            }
-        })
+        // this.addHook('beforeCreate', 'UserHook.hashPassword')
     }
 
     static get traits() {
         return [
             '@provider:Adonis/Acl/HasRole',
-            '@provider:Adonis/Acl/HasPermission',
+            '@provider:Adonis/Acl/HasPermission'
         ]
     }
 
@@ -40,6 +36,14 @@ class User extends Model {
      */
     tokens() {
         return this.hasMany('App/Models/Token')
+    }
+
+    pages() {
+        return this.hasMany('App/Models/Page')
+    }
+
+    avatar() {
+        return this.hasOne('App/Models/Image', 'avatar_id', 'id')
     }
 }
 

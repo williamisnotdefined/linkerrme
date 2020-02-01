@@ -15,7 +15,8 @@ const Server = use('Server')
 const globalMiddleware = [
     'Adonis/Middleware/BodyParser',
     'App/Middleware/ConvertEmptyStringsToNull',
-    'Adonis/Middleware/AuthInit'
+    'Adonis/Middleware/AuthInit',
+    'Adonis/Acl/AuthInit'
 ]
 
 /*
