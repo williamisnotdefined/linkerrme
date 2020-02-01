@@ -42,7 +42,7 @@ class User extends Model {
         return this.hasMany('App/Models/Page')
     }
 
-    avatar() {
+    avatars() {
         return this.hasOne('App/Models/Image', 'avatar_id', 'id')
     }
 }
