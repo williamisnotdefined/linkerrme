@@ -1,39 +1,38 @@
 # LinkerrMe
 
 -   Google Login
--   Page Templates
--   Google Fonts (optional)
+-   Page Presets
 
 ## Ideas:
 
 -   Social networks
 
-*   Custom colors / Hover colors (THE SAME TO ALL)
+*   Custom colors / Hover colors (same to all links)
 
     -   Text color
     -   Border color
     -   Social networks
-
-*   Sensitive content advice (BOTH) - Before show links - On try access
 
 ## Future
 
 -   Video background
 -   Animate on show
 -   Dark Mode / Light Mode
+-   Sensitive content advice (BOTH) - Before show links - On try access
+-   Google Fonts (optional)
 
 ## onDeploy
 
--   Não esquecer do CORS quando for subir para live
+-   fix CORS on deploy
 
 ## dev planejamento
 
 https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 
 -   Migrations - OK
--   Models / Hooks (não sei se hooks serão necessários)
+-   Models / Hooks (needded?)
 -   Factories / Seeders
 -   Transformers
 -   Auth
--   Rotas / Controllers / Helpers (str_rand por exemplo) / Services / Middlewares / Validators
+-   Router / Controllers / Helpers (str_rand por exemplo) / Services / Middlewares / Validators
 -   ExceptionHandler
