@@ -21,3 +21,28 @@ Factory.blueprint('App/Models/User', faker => {
         password: '123456'
     }
 })
+
+Factory.blueprint('App/Models/Page', (faker, i, data) => {
+    return {
+        slug: faker.animal(),
+        user_id: data.user_id,
+        template_id: data.template_id
+    }
+})
+
+Factory.blueprint('App/Models/Link', (faker, i, data) => {
+    return {
+        text: faker.name({ prefix: true }),
+        url: faker.url(),
+        template_id: data.template_id,
+        page_id: data.page_id
+    }
+})
+
+Factory.blueprint('App/Models/PageSocialLinks', (faker, i, data) => {
+    return {
+        url: faker.url(),
+        social_link_id: data.social_link_id,
+        page_id: data.page_id
+    }
+})

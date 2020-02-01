@@ -13,7 +13,10 @@ class PageSchema extends Schema {
                 .unique()
                 .index()
 
-            table.integer('image_background_id').unsigned()
+            table
+                .integer('image_background_id')
+                .unsigned()
+                .index()
             table
                 .foreign('image_background_id')
                 .references('id')
@@ -24,6 +27,7 @@ class PageSchema extends Schema {
                 .integer('template_id')
                 .notNullable()
                 .unsigned()
+                .index()
             table
                 .foreign('template_id')
                 .references('id')
@@ -34,6 +38,7 @@ class PageSchema extends Schema {
                 .integer('user_id')
                 .notNullable()
                 .unsigned()
+                .index()
             table
                 .foreign('user_id')
                 .references('id')
