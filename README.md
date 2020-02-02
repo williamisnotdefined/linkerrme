@@ -39,3 +39,11 @@ https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 -   Router / Controllers / Helpers (str_rand por exemplo) / Services / Middlewares / Validators
 -   ExceptionHandler
 -   error_log (email only) / email package
+
+## Bugs to solve before live
+
+-   Resize image with Sharp
+
+## current task
+
+-   usuário já é criado, agora falta fazer persistir o login

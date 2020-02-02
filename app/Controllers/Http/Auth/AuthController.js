@@ -4,11 +4,13 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Helpers = use('Helpers')
+const Database = use('Database')
 
-const Axios = use('axios')
-const Sharp = use('sharp')
-const FileType = use('file-type')
+const User = use('App/Models/User')
+const Image = use('App/Models/Image')
+const ImageType = use('App/Models/ImageType')
+
+const ImageService = use('App/Services/Image')
 
 /**
  * Resourceful controller for interacting with auths
@@ -34,42 +36,60 @@ class AuthController {
     }
 
     async authenticatedWithGoogle({ request, response, ally }) {
-        let googleUser = null
+        const trx = await Database.beginTransaction()
 
         try {
-            googleUser = await ally.driver('google').getUser()
+            const googleUser = await ally.driver('google').getUser()
+            const email = googleUser.getEmail()
+            const name = googleUser.getName()
+
+            const user = await User.findOrCreate(
+                { email },
+                {
+                    email,
+                    name
+                },
+                trx
+            )
+
+            if (!user.avatar_id) {
+                const imageType = await ImageType.findBy('name', 'user_avatar')
+
+                const imageService = new ImageService()
+                const {
+                    filename,
+                    ext
+                } = await imageService.uploadGoogleAvatarToS3(
+                    user.id,
+                    googleUser.getAvatar()
+                )
+
+                const image = await Image.create(
+                    {
+                        filename,
+                        ext,
+                        image_type_id: imageType.id
+                    },
+                    trx
+                )
+
+                user.avatar_id = image.id
+                await user.save(trx)
+            }
+
+            await trx.commit()
+
+            return response.status(200).send({
+                user: googleUser
+            })
         } catch (error) {
+            await trx.rollback()
+
             return response.status(500).send({
                 success: false,
-                error: 'Cannt get properties from Google user'
+                error: 'Cannt create user'
             })
         }
-
-        const avatar = googleUser.getAvatar()
-
-        if (avatar) {
-            const { status, data: avatarFile } = await Axios({
-                url: avatar,
-                method: 'GET',
-                responseType: 'arraybuffer'
-            })
-
-            if (status == 200) {
-                const { ext } = await FileType.fromBuffer(avatarFile)
-
-                await Sharp(avatarFile)
-                    .resize(200, 200)
-                    .toFile(
-                        `${Helpers.tmpPath(
-                            '/avatar'
-                        )}/avatar-${Date.now()}.${ext}`
-                    )
-            }
-        }
-
-        return response.status(200).send({
-            user: googleUser
-        })
     }
 }
 
