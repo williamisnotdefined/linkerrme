@@ -29,7 +29,7 @@ module.exports = {
         google: {
             clientId: Env.get('GOOGLE_CLIENT_ID'),
             clientSecret: Env.get('GOOGLE_CLIENT_SECRET'),
-            redirectUri: `${Env.get('APP_URL')}/authenticated/google`
+            redirectUri: `${Env.get('APP_URL')}/v1/auth/authenticated/google`
         },
 
         /*
