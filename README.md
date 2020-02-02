@@ -47,3 +47,6 @@ https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 ## current task
 
 -   usuário já é criado, agora falta fazer persistir o login
+-   ImageService para Helper/Image
+-   Criação de usuário no UserService
+-   Não esquecer das Roles

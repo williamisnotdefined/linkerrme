@@ -35,7 +35,7 @@ class AuthController {
         }
     }
 
-    async authenticatedWithGoogle({ request, response, ally }) {
+    async authenticatedWithGoogle({ response, ally }) {
         const trx = await Database.beginTransaction()
 
         try {
@@ -51,6 +51,13 @@ class AuthController {
                 },
                 trx
             )
+
+            // TODO ROLES
+            // await user.roles().attach(
+            // 	[userRole.id /*, adminRole*/],
+            // 	null, // callback
+            // 	trx // transaction
+            // )
 
             if (!user.avatar_id) {
                 const imageType = await ImageType.findBy('name', 'user_avatar')
