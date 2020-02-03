@@ -28,6 +28,8 @@
 ## dev todo list
 
 https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
+https://s3.console.aws.amazon.com/
+https://console.developers.google.com/apis/credentials
 
 -   atenção: rotas devem ter grupos admin / site (acho que site não precisa de grupo, só o admin)
 
@@ -36,7 +38,7 @@ https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 -   Factories / Seeders - OK
 -   Auth Login / Register - OK
 -   Start i18n - OK
--   Helpers / Services (always needed) - OK
+-   Helpers / Services (whenever necessary) - OK
 
 -   Router / Controllers / Validators / Transformers / Middlewares
 -   ExceptionHandler
