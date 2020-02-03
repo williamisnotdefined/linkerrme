@@ -34,10 +34,11 @@ https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 -   Migrations - OK
 -   Models / Hooks (needded?) - OK
 -   Factories / Seeders - OK
--   Auth Login - OK
+-   Auth Login / Register - OK
 -   Start i18n - OK
+-   Helpers / Services (always needed) - OK
+
 -   Router / Controllers / Validators / Transformers / Middlewares
--   Helpers / Services
 -   ExceptionHandler
 -   error_log (email only) / email package
 
