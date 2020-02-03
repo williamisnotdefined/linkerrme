@@ -47,7 +47,7 @@ https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 
 ## current task
 
--   Criação de páginas
--   Criação de links
--   Criação de Links sociais
+-   CRUD de páginas
+-   CRUD de links
+-   CRUD de Links sociais
 -   CRUD PageConfig
