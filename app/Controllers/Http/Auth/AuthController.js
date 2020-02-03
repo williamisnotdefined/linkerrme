@@ -44,7 +44,7 @@ class AuthController {
 
             return response.status(500).send({
                 success: false,
-                error: antl.formatMessage('auth.cant_register')
+                error: antl.formatMessage('auth.cant_auth')
             })
         }
     }
