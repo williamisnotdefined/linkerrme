@@ -38,7 +38,10 @@ class AuthController {
 
             const authData = await auth.withRefreshToken().generate(user)
 
-            return response.status(200).send(authData)
+            return response.status(200).send({
+                success: true,
+                auth_data: authData
+            })
         } catch (error) {
             await trx.rollback()
 
