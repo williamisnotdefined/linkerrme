@@ -35,8 +35,8 @@ https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 -   Models / Hooks (needded?) - OK
 -   Factories / Seeders - OK
 -   Auth Login - OK
--   Transformers
--   Router / Controllers / Middlewares / Validators
+-   Start i18n - OK
+-   Router / Controllers / Validators / Transformers / Middlewares
 -   Helpers / Services
 -   ExceptionHandler
 -   error_log (email only) / email package
