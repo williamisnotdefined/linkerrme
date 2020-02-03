@@ -12,7 +12,7 @@ const UserService = use('App/Services/User')
  * Resourceful controller for interacting with auths
  */
 class AuthController {
-    async getGoogleUrl({ response, ally }) {
+    async getGoogleUrl({ response, ally, antl }) {
         try {
             const url = await ally.driver('google').getRedirectUrl()
             return response.status(200).send({
@@ -22,7 +22,7 @@ class AuthController {
         } catch (error) {
             return response.status(500).send({
                 success: false,
-                error: 'Google service is down'
+                error: antl.formatMessage('auth.cant_request_google_url')
             })
         }
     }
@@ -44,7 +44,7 @@ class AuthController {
 
             return response.status(500).send({
                 success: false,
-                error: 'Cannt create user'
+                error: antl.formatMessage('auth.cant_register')
             })
         }
     }

@@ -20,7 +20,8 @@ const providers = [
     'adonis-bumblebee/providers/BumblebeeProvider',
     '@adonisjs/validator/providers/ValidatorProvider',
     '@adonisjs/ally/providers/AllyProvider',
-    '@adonisjs/drive/providers/DriveProvider'
+    '@adonisjs/drive/providers/DriveProvider',
+    '@adonisjs/antl/providers/AntlProvider'
 ]
 
 /*
