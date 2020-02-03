@@ -14,6 +14,10 @@ Route.group(() => {
         .middleware(['guest'])
     //.validator('Auth/Register')
 
+    // Route.get('/who-am-i', 'AuthController.whoAmI')
+    //     .as('auth.who_am_i')
+    //     .middleware(['auth'])
+
     /*
 	// ROUTES TODO
 	Route.post('logout', 'AuthController.logout')

@@ -34,9 +34,10 @@ https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 -   Migrations - OK
 -   Models / Hooks (needded?) - OK
 -   Factories / Seeders - OK
+-   Auth Login - OK
 -   Transformers
--   Auth
--   Router / Controllers / Helpers (str_rand por exemplo) / Services / Middlewares / Validators
+-   Router / Controllers / Middlewares / Validators
+-   Helpers / Services
 -   ExceptionHandler
 -   error_log (email only) / email package
 
@@ -46,7 +47,7 @@ https://www.draw.io/#G1916PRh68ICTHg4-kDiMqMhnlMwpypYf0
 
 ## current task
 
--   usuário já é criado, agora falta fazer persistir o login
--   ImageService para Helper/Image
--   Criação de usuário no UserService
--   Não esquecer das Roles
+-   Criação de páginas
+-   Criação de links
+-   Criação de Links sociais
+-   CRUD PageConfig
