@@ -59,6 +59,13 @@ class PageController {
      */
     async store({ request, response, auth, transform, antl }) {
         try {
+            /**
+             * TODO <<----
+             * adicionar nome na tabela + slugify
+             * terá opção de altera a slug então podemos permitir a criação de qualquer nome, a slug deve resolver
+             * Criar Validator para Pages
+             *  */
+
             const slug = request.input('slug')
             const hasPage = await Page.findBy('slug', slug)
 
