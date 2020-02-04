@@ -52,10 +52,10 @@ class AuthController {
         }
     }
 
-    // async whoAmI({ request, response, auth }) {
-    //     const user = await auth.getUser()
-    //     return response.status(200).send(user)
-    // }
+    async whoAmI({ request, response, auth }) {
+        const user = await auth.getUser()
+        return response.status(200).send(user)
+    }
 }
 
 module.exports = AuthController
