@@ -54,3 +54,5 @@ https://console.developers.google.com/apis/credentials
 -   CRUD de links
 -   CRUD de Links sociais
 -   CRUD PageConfig
+-   Add "active" attr on table Links
+-   Adicionar "name" attr on pages and let edit "slug"

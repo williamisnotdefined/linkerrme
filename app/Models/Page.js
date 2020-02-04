@@ -8,12 +8,16 @@ class Page extends Model {
         super.boot()
     }
 
-    images() {
+    image() {
         return this.hasOne('App/Models/Image', 'image_background_id', 'id')
     }
 
-    users() {
+    user() {
         return this.hasOne('App/Models/User')
+    }
+
+    template() {
+        return this.hasOne('App/Models/Template', 'template_id', 'id')
     }
 }
 

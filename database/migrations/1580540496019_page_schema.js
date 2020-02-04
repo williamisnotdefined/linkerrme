@@ -26,7 +26,6 @@ class PageSchema extends Schema {
             table
                 .integer('template_id')
                 .notNullable()
-                .unsigned()
                 .index()
             table
                 .foreign('template_id')
@@ -37,7 +36,6 @@ class PageSchema extends Schema {
             table
                 .integer('user_id')
                 .notNullable()
-                .unsigned()
                 .index()
             table
                 .foreign('user_id')

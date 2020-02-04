@@ -1,0 +1,5 @@
+{
+    "cant_list_pages": "Error listing pages, please try again.",
+    "cant_create_page": "Error creating page, please try again.",
+    "unavailable_page_slug": "Page name unavailable."
+}
