@@ -54,7 +54,7 @@ https://console.developers.google.com/apis/credentials
 -   melhorar as response dos controllers (status(XXX) ...)
 -   Ver se não tem como fazer tipo o objects do python para não precisar passar user_id nas queries
 
--   CRUD de páginas
+-   CRUD de páginas (Falta upload de background)
 -   CRUD de links
 -   CRUD de Links sociais
 -   CRUD PageConfig
