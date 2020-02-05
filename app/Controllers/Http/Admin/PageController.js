@@ -5,6 +5,10 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Page = use('App/Models/Page')
+const Template = use('App/Models/Template')
+
+const { generatePageSlug } = use('App/Helpers/Page')
+
 const PageTransformer = use('App/Transformers/Admin/PageTransformer')
 
 /**
@@ -59,26 +63,13 @@ class PageController {
      */
     async store({ request, response, auth, transform, antl }) {
         try {
-            /**
-             * TODO <<----
-             * adicionar nome na tabela + slugify
-             * terá opção de altera a slug então podemos permitir a criação de qualquer nome, a slug deve resolver
-             * Criar Validator para Pages
-             *  */
-
-            const slug = request.input('slug')
-            const hasPage = await Page.findBy('slug', slug)
-
-            if (hasPage) {
-                return response.status(200).send({
-                    success: false,
-                    error: antl.formatMessage('page.unavailable_page_slug')
-                })
-            }
+            const name = request.input('name')
+            const slug = await generatePageSlug(name)
 
             const user = await auth.getUser()
 
             const pageRaw = await Page.create({
+                name,
                 slug,
                 template_id: 1,
                 user_id: user.id
@@ -117,7 +108,39 @@ class PageController {
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
-    async update({ params, request, response }) {}
+    async update({ params: { id }, request, response, auth, transform, antl }) {
+        const page = await Page.findOrFail(id)
+        const { name, slug, template_id } = request.only([
+            'name',
+            'slug',
+            'template_id'
+        ])
+
+        try {
+            const safe_slug = await generatePageSlug(slug, id)
+
+            page.merge({
+                name,
+                slug: safe_slug,
+                template_id
+            })
+
+            page.save()
+
+            const updatedPage = await transform.item(page, PageTransformer)
+
+            return response.status(200).send({
+                success: true,
+                updatedPage,
+                message: antl.formatMessage('page.success_updated')
+            })
+        } catch (error) {
+            return response.status(500).send({
+                success: false,
+                message: antl.formatMessage('page.fail_updated')
+            })
+        }
+    }
 
     /**
      * Delete a page with id.

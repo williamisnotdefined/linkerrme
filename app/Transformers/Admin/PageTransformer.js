@@ -22,10 +22,11 @@ class PageTransformer extends BumblebeeTransformer {
     }
 
     transform(page) {
-        const { slug, id } = page
+        const { id, name, slug } = page
 
         return {
             id,
+            name,
             slug
         }
     }

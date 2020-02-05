@@ -24,7 +24,8 @@ Factory.blueprint('App/Models/User', faker => {
 
 Factory.blueprint('App/Models/Page', (faker, i, data) => {
     return {
-        slug: faker.animal(),
+        name: faker.animal(),
+        slug: `seed-slug-user-${data.user_id}`,
         user_id: data.user_id,
         template_id: data.template_id
     }

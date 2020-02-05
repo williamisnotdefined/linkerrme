@@ -1,5 +1,13 @@
 {
     "cant_list_pages": "Error listing pages, please try again.",
     "cant_create_page": "Error creating page, please try again.",
-    "unavailable_page_slug": "Page name unavailable."
+    "unavailable_page_slug": "Slug (url) unavailable.",
+
+    "name_required": "Page name is required.",
+    "slug_required": "Page slug is required.",
+    "template_required": "Page template is required.",
+    "template_not_found": "Invalid template.",
+
+    "success_updated": "Page updated successfully.",
+    "fail_updated": "Cann't update page, try again."
 }

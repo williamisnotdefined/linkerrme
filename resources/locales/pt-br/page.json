@@ -1,5 +1,13 @@
 {
     "cant_list_pages": "Erro ao listar páginas, tente novamente.",
     "cant_create_page": "Erro ao criar página, tente novamente.",
-    "unavailable_page_slug": "Nome de página indisponível."
+    "unavailable_page_slug": "Slug (url) indisponível.",
+
+    "name_required": "O nome da página é obrigatório.",
+    "slug_required": "Slug da página é obrigatória.",
+    "template_required": "O template da página é obrigatório.",
+    "template_not_found": "Template inválido.",
+
+    "success_updated": "Página atualizada com sucesso.",
+    "fail_updated": "Falha ao atualizar página, tente novamente."
 }

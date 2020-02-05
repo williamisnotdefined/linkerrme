@@ -12,6 +12,7 @@
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
+
 const User = use('App/Models/User')
 const Template = use('App/Models/Template')
 const SocialLink = use('App/Models/SocialLink')

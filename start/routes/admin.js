@@ -5,7 +5,14 @@ const Route = use('Route')
 
 Route.group(() => {
     // TODO
-    Route.resource('page', 'PageController').apiOnly()
+    Route.resource('page', 'PageController')
+        .apiOnly()
+        .validator(
+            new Map([
+                ['page.store', 'Admin/Page/Store'],
+                ['page.update', 'Admin/Page/Update']
+            ])
+        )
 })
     .prefix('v1/admin')
     .namespace('Admin')

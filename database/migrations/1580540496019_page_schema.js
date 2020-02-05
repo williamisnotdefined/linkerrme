@@ -7,6 +7,7 @@ class PageSchema extends Schema {
     up() {
         this.create('pages', table => {
             table.increments()
+            table.string('name', 250).notNullable()
             table
                 .string('slug', 250)
                 .notNullable()
@@ -25,6 +26,7 @@ class PageSchema extends Schema {
 
             table
                 .integer('template_id')
+                .unsigned()
                 .notNullable()
                 .index()
             table
@@ -35,6 +37,7 @@ class PageSchema extends Schema {
 
             table
                 .integer('user_id')
+                .unsigned()
                 .notNullable()
                 .index()
             table
