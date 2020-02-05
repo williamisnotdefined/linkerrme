@@ -5,7 +5,6 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Page = use('App/Models/Page')
-const Template = use('App/Models/Template')
 
 const { generatePageSlug } = use('App/Helpers/Page')
 
@@ -98,7 +97,20 @@ class PageController {
      * @param {Response} ctx.response
      * @param {View} ctx.view
      */
-    async show({ params, request, response, view }) {}
+    async show({ params: { id }, response, transform, auth }) {
+        const user = await auth.getUser()
+        const pageRaw = await Page.findByOrFail({
+            id,
+            user_id: user.id
+        })
+
+        const page = await transform.item(pageRaw, PageTransformer)
+
+        return response.send({
+            success: true,
+            page
+        })
+    }
 
     /**
      * Update page details.
@@ -109,7 +121,12 @@ class PageController {
      * @param {Response} ctx.response
      */
     async update({ params: { id }, request, response, auth, transform, antl }) {
-        const page = await Page.findOrFail(id)
+        const user = await auth.getUser()
+        const page = await Page.findByOrFail({
+            id,
+            user_id: user.id
+        })
+
         const { name, slug, template_id } = request.only([
             'name',
             'slug',
@@ -150,7 +167,20 @@ class PageController {
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
-    async destroy({ params, request, response }) {}
+    async destroy({ params: { id }, response, auth, antl }) {
+        const user = await auth.getUser()
+        const page = await Page.findByOrFail({
+            id,
+            user_id: user.id
+        })
+
+        await page.delete()
+
+        return response.send({
+            success: true,
+            message: antl.formatMessage('page.page_deleted')
+        })
+    }
 }
 
 module.exports = PageController

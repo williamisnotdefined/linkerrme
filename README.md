@@ -50,9 +50,11 @@ https://console.developers.google.com/apis/credentials
 
 ## current task
 
+-   Add "active" attr on table Links
+-   melhorar as response dos controllers (status(XXX) ...)
+-   Ver se não tem como fazer tipo o objects do python para não precisar passar user_id nas queries
+
 -   CRUD de páginas
 -   CRUD de links
 -   CRUD de Links sociais
 -   CRUD PageConfig
--   Add "active" attr on table Links
--   Adicionar "name" attr on pages and let edit "slug"

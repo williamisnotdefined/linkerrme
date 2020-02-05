@@ -9,5 +9,6 @@
     "template_not_found": "Template inválido.",
 
     "success_updated": "Página atualizada com sucesso.",
-    "fail_updated": "Falha ao atualizar página, tente novamente."
+    "fail_updated": "Falha ao atualizar página, tente novamente.",
+    "page_deleted": "Página deletada com sucesso."
 }

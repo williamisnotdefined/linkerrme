@@ -9,5 +9,6 @@
     "template_not_found": "Invalid template.",
 
     "success_updated": "Page updated successfully.",
-    "fail_updated": "Cann't update page, try again."
+    "fail_updated": "Cann't update page, try again.",
+    "page_deleted": "Page deleted successfully."
 }
