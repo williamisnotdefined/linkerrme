@@ -181,6 +181,51 @@ class PageController {
             message: antl.formatMessage('page.page_deleted')
         })
     }
+
+    async uploadImageBackground({
+        params: { id },
+        request,
+        response,
+        auth,
+        antl
+    }) {
+        const user = await auth.getUser()
+        const page = await Page.findByOrFail({
+            id: id,
+            user_id: user.id
+        })
+
+        const fileNames = []
+
+        const validationOptions = {
+            types: 'images',
+            size: '1mb'
+        }
+
+        request.multipart.file(
+            'image_background',
+            validationOptions,
+            async file => {
+                // set file size from stream byteCount, so adonis can validate file size
+                file.size = file.stream.byteCount
+                await file.runValidations()
+
+                const error = file.error()
+                console.log('error: ', error)
+
+                // https://adonisjs.com/docs/4.0/exceptions#_custom_exceptions
+                // if (error.message) {
+                //     throw new Error(error.message)
+                // }
+            }
+        )
+
+        await request.multipart.process()
+
+        return response.status(200).send({
+            fileNames
+        })
+    }
 }
 
 module.exports = PageController

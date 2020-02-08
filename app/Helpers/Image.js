@@ -1,19 +1,25 @@
 'use strict'
 
-const fs = use('fs')
 const Drive = use('Drive')
 
-const moveTmpAvatarToS3 = async (tmpPath, userId, ext, mime) => {
-    const fileStream = await fs.createReadStream(tmpPath)
-
-    await Drive.put(`avatar/${userId}.${ext}`, fileStream, {
+const moveAvatarToS3 = async (fileProcessed, userId, ext, mime) => {
+    await Drive.put(`avatar/${userId}.${ext}`, fileProcessed, {
         ACL: 'public-read',
-        ContentType: mime
+        ContentType: mime,
+        CacheControl: 'max-age=31536000, public'
     })
+}
 
-    fs.unlinkSync(tmpPath)
+const moveImageBackgroundToS3 = async () => {
+    // o path pode ser /pages/USER_ID/PAGE_ID.EXT
+    // await Drive.put(`avatar/${userId}.${ext}`, fileProcessed, {
+    //     ACL: 'public-read',
+    //     ContentType: mime,
+    //     CacheControl: 'max-age=31536000, public'
+    // })
 }
 
 module.exports = {
-    moveTmpAvatarToS3
+    moveAvatarToS3,
+    moveImageBackgroundToS3
 }

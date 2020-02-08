@@ -44,17 +44,22 @@ https://console.developers.google.com/apis/credentials
 -   ExceptionHandler
 -   error_log (email only) / email package
 
-## Bugs to solve before live
+## To solve before live
 
 -   Resize image with Sharp
+-   Testar validators (validate all)
 
 ## current task
 
--   Add "active" attr on table Links
+-   CRUD de páginas (Falta upload de background / o image_type_id deve ser de background!)
+-   CRUD de links (text, url, page_id, image_id, is_newsletter)
+-   CRUD de Links sociais (social_link_id, url, page_id)
+-   CRUD PageConfig (page_id, attr, value) -> page_id e attr podem ser unique!
+-   CRUD Newletter sendo populada apenas pelo site
+-   avatar upload
+
+## whishlist
+
+-   expires na config da amazon (enviando imagem) - CacheControl
 -   melhorar as response dos controllers (status(XXX) ...)
 -   Ver se não tem como fazer tipo o objects do python para não precisar passar user_id nas queries
-
--   CRUD de páginas (Falta upload de background)
--   CRUD de links
--   CRUD de Links sociais
--   CRUD PageConfig

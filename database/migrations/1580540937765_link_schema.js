@@ -28,7 +28,14 @@ class LinkSchema extends Schema {
                 .inTable('images')
                 .onDelete('cascade')
 
-            table.boolean('is_newsletter').defaultTo(false)
+            table
+                .boolean('is_newsletter')
+                .notNullable()
+                .defaultTo(false)
+            table
+                .boolean('active')
+                .notNullable()
+                .defaultTo(false)
 
             table.timestamps()
         })

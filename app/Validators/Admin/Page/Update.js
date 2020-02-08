@@ -21,6 +21,10 @@ class AdminPageUpdate {
             'template_id.exists': Antl.formatMessage('page.template_not_found')
         }
     }
+
+    get validateAll() {
+        return true
+    }
 }
 
 module.exports = AdminPageUpdate

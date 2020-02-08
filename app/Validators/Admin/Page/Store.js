@@ -15,9 +15,9 @@ class AdminPageStore {
         }
     }
 
-    // get validateAll() {
-    //     return true
-    // }
+    get validateAll() {
+        return true
+    }
 }
 
 module.exports = AdminPageStore
