@@ -267,7 +267,7 @@ class PageController {
                 message: antl.formatMessage('page.image_background_deleted')
             })
         } catch (error) {
-            return response.status(500).send({
+            return response.status(400).send({
                 success: false,
                 error: antl.formatMessage('page.image_background_delete_fail')
             })
