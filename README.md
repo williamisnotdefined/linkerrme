@@ -50,7 +50,6 @@ https://console.developers.google.com/apis/credentials
 
 ## current task
 
--   Mensagens de ANTL PageControlller.uploadImageBackground
 -   CRUD de links (text, url, page_id, image_id, is_newsletter)
 -   CRUD de Links sociais (social_link_id, url, page_id)
 -   CRUD PageConfig (page_id, attr, value) -> page_id e attr podem ser unique!

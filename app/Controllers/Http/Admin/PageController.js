@@ -21,15 +21,6 @@ const { generatePageSlug, processImageBackgroundAndUploadToS3 } = use(
  * Resourceful controller for interacting with pages
  */
 class PageController {
-    /**
-     * Show a list of all pages.
-     * GET pages
-     *
-     * @param {object} ctx
-     * @param {Request} ctx.request
-     * @param {Response} ctx.response
-     * @param {View} ctx.view
-     */
     async index({ request, response, auth, paginate, transform, antl }) {
         try {
             const title = request.input('title')
@@ -59,14 +50,6 @@ class PageController {
         }
     }
 
-    /**
-     * Create/save a new page.
-     * POST pages
-     *
-     * @param {object} ctx
-     * @param {Request} ctx.request
-     * @param {Response} ctx.response
-     */
     async store({ request, response, auth, transform, antl }) {
         try {
             const name = request.input('name')
@@ -95,15 +78,6 @@ class PageController {
         }
     }
 
-    /**
-     * Display a single page.
-     * GET pages/:id
-     *
-     * @param {object} ctx
-     * @param {Request} ctx.request
-     * @param {Response} ctx.response
-     * @param {View} ctx.view
-     */
     async show({ params: { id }, response, transform, auth }) {
         const user = await auth.getUser()
         const pageRaw = await Page.findByOrFail({
@@ -119,14 +93,6 @@ class PageController {
         })
     }
 
-    /**
-     * Update page details.
-     * PUT or PATCH pages/:id
-     *
-     * @param {object} ctx
-     * @param {Request} ctx.request
-     * @param {Response} ctx.response
-     */
     async update({ params: { id }, request, response, auth, transform, antl }) {
         const user = await auth.getUser()
         const page = await Page.findByOrFail({
@@ -166,14 +132,6 @@ class PageController {
         }
     }
 
-    /**
-     * Delete a page with id.
-     * DELETE pages/:id
-     *
-     * @param {object} ctx
-     * @param {Request} ctx.request
-     * @param {Response} ctx.response
-     */
     async destroy({ params: { id }, response, auth, antl }) {
         const user = await auth.getUser()
         const page = await Page.findByOrFail({
@@ -210,7 +168,7 @@ class PageController {
         if (!imageBackground) {
             return response.status(400).send({
                 success: false,
-                error: 'É obrigatório o envio de uma imagem'
+                error: antl.formatMessage('page.image_background_required')
             })
         }
 
@@ -229,7 +187,10 @@ class PageController {
                 if (errorType == 'size') {
                     return response.status(400).send({
                         success: false,
-                        error: 'Tamanho máximo para a imagem é de 20mb'
+                        error: antl.formatMessage(
+                            'page.image_background_max_size',
+                            { size: '20mb' }
+                        )
                     })
                 }
             }
@@ -265,6 +226,11 @@ class PageController {
                 trx
             )
 
+            if (page.image_background_id) {
+                const oldImage = await Image.find(page.image_background_id, trx)
+                await oldImage.delete(trx)
+            }
+
             page.image_background_id = image.id
             await page.save(trx)
 
@@ -273,7 +239,7 @@ class PageController {
 
             return response.status(200).send({
                 success: true,
-                message: 'Imagem de fundo salva com sucesso.'
+                message: antl.formatMessage('page.image_background_saved')
             })
         } catch (error) {
             fs.unlinkSync(tmpPath)
@@ -281,7 +247,29 @@ class PageController {
 
             return response.status(500).send({
                 success: false,
-                error: 'Falha ao processar imagem, tente novamente.'
+                error: antl.formatMessage('page.image_background_fail')
+            })
+        }
+    }
+
+    async deleteImageBackground({ params: { id }, response, auth, antl }) {
+        try {
+            const user = await auth.getUser()
+            const page = await Page.findByOrFail({
+                id,
+                user_id: user.id
+            })
+
+            await page.image().delete()
+
+            return response.status(200).send({
+                success: true,
+                message: antl.formatMessage('page.image_background_deleted')
+            })
+        } catch (error) {
+            return response.status(500).send({
+                success: false,
+                error: antl.formatMessage('page.image_background_delete_fail')
             })
         }
     }

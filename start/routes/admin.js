@@ -11,6 +11,11 @@ Route.group(() => {
         'PageController.uploadImageBackground'
     )
 
+    Route.delete(
+        '/page/delete-image-background/:id',
+        'PageController.deleteImageBackground'
+    )
+
     Route.resource('page', 'PageController')
         .apiOnly()
         .validator(
