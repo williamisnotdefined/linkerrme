@@ -13,11 +13,11 @@ class Page extends Model {
     }
 
     user() {
-        return this.hasOne('App/Models/User')
+        return this.belongsTo('App/Models/User')
     }
 
     template() {
-        return this.hasOne('App/Models/Template', 'template_id', 'id')
+        return this.belongsTo('App/Models/Template', 'template_id', 'id')
     }
 }
 

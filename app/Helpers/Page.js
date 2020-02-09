@@ -45,6 +45,7 @@ const processImageBackgroundAndUploadToS3 = async (userId, pageId, tmpPath) => {
 
     let imageWidth = 0
     let imageHeight = 0
+
     if (isVertical) {
         imageWidth = Math.min(width, MAX_SIZE_PAGE_IMAGE_BACKGROUND)
         imageHeight = Math.floor((imageWidth * height) / width)
