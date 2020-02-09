@@ -13,7 +13,6 @@ class PageConfigSchema extends Schema {
                 .foreign('page_id')
                 .references('id')
                 .inTable('pages')
-                .onDelete('cascade')
 
             table.string('attr', 250).notNullable()
             table.string('value', 250)

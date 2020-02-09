@@ -4,11 +4,18 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Page = use('App/Models/Page')
+const fs = use('fs')
+const Helpers = use('Helpers')
+const Database = use('Database')
 
-const { generatePageSlug } = use('App/Helpers/Page')
+const Page = use('App/Models/Page')
+const Image = use('App/Models/Image')
+const ImageType = use('App/Models/ImageType')
 
 const PageTransformer = use('App/Transformers/Admin/PageTransformer')
+const { generatePageSlug, processImageBackgroundAndUploadToS3 } = use(
+    'App/Helpers/Page'
+)
 
 /**
  * Resourceful controller for interacting with pages
@@ -195,36 +202,88 @@ class PageController {
             user_id: user.id
         })
 
-        const fileNames = []
+        const imageBackground = request.file('image_background', {
+            types: ['image'], // garante que passe apenas arquivos do tipo imagem para a variavel imageBackground
+            size: '20mb'
+        })
 
-        const validationOptions = {
-            types: 'images',
-            size: '1mb'
+        if (!imageBackground) {
+            return response.status(400).send({
+                success: false,
+                error: 'É obrigatório o envio de uma imagem'
+            })
         }
 
-        request.multipart.file(
-            'image_background',
-            validationOptions,
-            async file => {
-                // set file size from stream byteCount, so adonis can validate file size
-                file.size = file.stream.byteCount
-                await file.runValidations()
+        try {
+            await imageBackground.move(
+                Helpers.tmpPath(`page_image_background/${user.id}`),
+                {
+                    name: `${page.id}.${imageBackground.subtype}`,
+                    overwrite: true
+                }
+            )
 
-                const error = file.error()
-                console.log('error: ', error)
+            if (!imageBackground.moved()) {
+                const { type: errorType } = imageBackground.error()
 
-                // https://adonisjs.com/docs/4.0/exceptions#_custom_exceptions
-                // if (error.message) {
-                //     throw new Error(error.message)
-                // }
+                if (errorType == 'size') {
+                    return response.status(400).send({
+                        success: false,
+                        error: 'Tamanho máximo para a imagem é de 20mb'
+                    })
+                }
             }
+        } catch (error) {
+            return response.status(400).send()
+        }
+
+        const tmpPath = Helpers.tmpPath(
+            `page_image_background/${user.id}/${page.id}.${imageBackground.subtype}`
         )
 
-        await request.multipart.process()
+        const trx = await Database.beginTransaction()
 
-        return response.status(200).send({
-            fileNames
-        })
+        try {
+            const { ext, name } = await processImageBackgroundAndUploadToS3(
+                user.id,
+                page.id,
+                tmpPath
+            )
+
+            const imageType = await ImageType.findBy(
+                'name',
+                'page_background',
+                trx
+            )
+
+            const image = await Image.create(
+                {
+                    filename: name,
+                    ext,
+                    image_type_id: imageType.id
+                },
+                trx
+            )
+
+            page.image_background_id = image.id
+            await page.save(trx)
+
+            fs.unlinkSync(tmpPath)
+            trx.commit()
+
+            return response.status(200).send({
+                success: true,
+                message: 'Imagem de fundo salva com sucesso.'
+            })
+        } catch (error) {
+            fs.unlinkSync(tmpPath)
+            trx.rollback()
+
+            return response.status(500).send({
+                success: false,
+                error: 'Falha ao processar imagem, tente novamente.'
+            })
+        }
     }
 }
 

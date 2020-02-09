@@ -9,25 +9,19 @@ class NewsletterSchema extends Schema {
             table.increments()
             table.string('email', 255).notNullable()
 
-            table
-                .integer('page_id')
-                .notNullable()
-                .unsigned()
+            table.integer('page_id').unsigned()
             table
                 .foreign('page_id')
                 .references('id')
                 .inTable('pages')
-                .onDelete('cascade')
+                .onDelete('set null')
 
-            table
-                .integer('link_id')
-                .notNullable()
-                .unsigned()
+            table.integer('link_id').unsigned()
             table
                 .foreign('link_id')
                 .references('id')
                 .inTable('links')
-                .onDelete('cascade')
+                .onDelete('set null')
 
             table.timestamps()
         })

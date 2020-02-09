@@ -15,7 +15,6 @@ class ImageSchema extends Schema {
                 .foreign('image_type_id')
                 .references('id')
                 .inTable('image_types')
-                .onDelete('cascade')
 
             table.timestamps()
         })

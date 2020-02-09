@@ -46,17 +46,15 @@ https://console.developers.google.com/apis/credentials
 
 ## To solve before live
 
--   Resize image with Sharp
 -   Testar validators (validate all)
 
 ## current task
 
--   CRUD de páginas (Falta upload de background / o image_type_id deve ser de background!)
 -   CRUD de links (text, url, page_id, image_id, is_newsletter)
 -   CRUD de Links sociais (social_link_id, url, page_id)
 -   CRUD PageConfig (page_id, attr, value) -> page_id e attr podem ser unique!
 -   CRUD Newletter sendo populada apenas pelo site
--   avatar upload
+-   Ao finalizar CRUDS, verificar se todos os onDelete estão corretos nas migrations (só bater o olho rapidinho, já verifiquei)
 
 ## whishlist
 

@@ -26,7 +26,7 @@ class LinkSchema extends Schema {
                 .foreign('image_id')
                 .references('id')
                 .inTable('images')
-                .onDelete('cascade')
+                .onDelete('set null')
 
             table
                 .boolean('is_newsletter')

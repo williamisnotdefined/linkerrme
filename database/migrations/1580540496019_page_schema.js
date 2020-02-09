@@ -22,18 +22,17 @@ class PageSchema extends Schema {
                 .foreign('image_background_id')
                 .references('id')
                 .inTable('images')
-                .onDelete('cascade')
+                .onDelete('set null')
 
             table
                 .integer('template_id')
                 .unsigned()
-                .notNullable()
                 .index()
             table
                 .foreign('template_id')
                 .references('id')
                 .inTable('templates')
-                .onDelete('cascade')
+                .onDelete('set null')
 
             table
                 .integer('user_id')
@@ -44,7 +43,6 @@ class PageSchema extends Schema {
                 .foreign('user_id')
                 .references('id')
                 .inTable('users')
-                .onDelete('cascade')
 
             table.timestamps()
         })

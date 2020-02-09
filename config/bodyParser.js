@@ -115,7 +115,7 @@ module.exports = {
 		| This value can contain a boolean or an array of route patterns
 		| to be autoprocessed.
 		*/
-        autoProcess: false,
+        autoProcess: true,
 
         /*
 		|--------------------------------------------------------------------------
@@ -127,7 +127,7 @@ module.exports = {
 		| is to true. Otherwise everything is processed manually.
 		|
 		*/
-        processManually: ['/v1/admin/page/upload-image-background/:id']
+        processManually: []
 
         /*
 		|--------------------------------------------------------------------------

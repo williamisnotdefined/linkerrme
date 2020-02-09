@@ -11,7 +11,7 @@ class UserImageFkSchema extends Schema {
                 .foreign('avatar_id')
                 .references('id')
                 .inTable('images')
-                .onDelete('cascade')
+                .onDelete('set null')
         })
     }
 

@@ -1,7 +1,5 @@
 'use strict'
 
-const Helpers = use('Helpers')
-
 const Axios = use('axios')
 const Sharp = use('sharp')
 const FileType = use('file-type')

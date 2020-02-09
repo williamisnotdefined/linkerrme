@@ -9,7 +9,7 @@ class Page extends Model {
     }
 
     image() {
-        return this.hasOne('App/Models/Image', 'image_background_id', 'id')
+        return this.belongsTo('App/Models/Image', 'image_background_id', 'id')
     }
 
     user() {
