@@ -26,7 +26,18 @@ const moveImageBackgroundToS3 = async (
     })
 }
 
+const deleteImageBackgroundFromS3 = (userId, pageId, imageName) => {
+    // TODO
+}
+
+const ImageTypes = {
+    PageBackground: 1,
+    LinkThumb: 2,
+    UserAvatar: 3
+}
+
 module.exports = {
     moveAvatarToS3,
-    moveImageBackgroundToS3
+    moveImageBackgroundToS3,
+    ImageTypes
 }

@@ -7,10 +7,6 @@ class ImageType extends Model {
     static boot() {
         super.boot()
     }
-
-    images() {
-        return this.belongsToMany('App/Models/Image')
-    }
 }
 
 module.exports = ImageType

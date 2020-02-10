@@ -235,7 +235,7 @@ class PageController {
             await page.save(trx)
 
             fs.unlinkSync(tmpPath)
-            trx.commit()
+            await trx.commit()
 
             return response.status(200).send({
                 success: true,
@@ -243,7 +243,7 @@ class PageController {
             })
         } catch (error) {
             fs.unlinkSync(tmpPath)
-            trx.rollback()
+            await trx.rollback()
 
             return response.status(500).send({
                 success: false,
@@ -253,20 +253,31 @@ class PageController {
     }
 
     async deleteImageBackground({ params: { id }, response, auth, antl }) {
+        const trx = await Database.beginTransaction()
+
         try {
             const user = await auth.getUser()
-            const page = await Page.findByOrFail({
-                id,
-                user_id: user.id
-            })
+            const page = await Page.findByOrFail(
+                {
+                    id,
+                    user_id: user.id
+                },
+                trx
+            )
 
-            await page.image().delete()
+            // await page.image().delete(trx) // não chama o hook de deleção de imagem
+            const image = await Image.find(page.image_background_id, trx)
+            await image.delete(trx)
+
+            await trx.commit()
 
             return response.status(200).send({
                 success: true,
                 message: antl.formatMessage('page.image_background_deleted')
             })
         } catch (error) {
+            await trx.rollback()
+
             return response.status(400).send({
                 success: false,
                 error: antl.formatMessage('page.image_background_delete_fail')

@@ -3,6 +3,7 @@
 const BumblebeeTransformer = use('Bumblebee/Transformer')
 
 const TemplateTransformer = use('App/Transformers/Admin/TemplateTransformer')
+const ImageTransformer = use('App/Transformers/Admin/ImageTransformer')
 
 /**
  * PageTransformer class
@@ -12,13 +13,17 @@ const TemplateTransformer = use('App/Transformers/Admin/TemplateTransformer')
  */
 class PageTransformer extends BumblebeeTransformer {
     static get defaultInclude() {
-        return ['template']
+        return ['template', 'image']
     }
 
     /* TODO AVAILABLE INCLUDES */
 
     includeTemplate(page) {
         return this.item(page.getRelated('template'), TemplateTransformer)
+    }
+
+    includeImage(page) {
+        return this.item(page.getRelated('image'), ImageTransformer)
     }
 
     transform(page) {

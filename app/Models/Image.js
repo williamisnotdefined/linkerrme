@@ -9,12 +9,10 @@ class Image extends Model {
 
         this.addHook('beforeDelete', 'ImageHook.deleteS3Image')
     }
-    // static get computed() {
-    //     return ['url']
-    // }
-    // getUrl({ path }) {
-    //     return `${Env.get('APP_URL')}/uploads/${path}`
-    // }
+
+    imageType() {
+        return this.belongsTo('App/Models/ImageType', 'image_type_id', 'id')
+    }
 }
 
 module.exports = Image
