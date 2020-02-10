@@ -4,8 +4,6 @@
 const Route = use('Route')
 
 Route.group(() => {
-    // TODO
-
     Route.post(
         '/page/upload-image-background/:id',
         'PageController.uploadImageBackground'

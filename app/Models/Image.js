@@ -6,6 +6,8 @@ const Model = use('Model')
 class Image extends Model {
     static boot() {
         super.boot()
+
+        this.addHook('beforeDelete', 'ImageHook.deleteS3Image')
     }
     // static get computed() {
     //     return ['url']

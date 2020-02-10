@@ -55,6 +55,15 @@ https://console.developers.google.com/apis/credentials
 -   CRUD PageConfig (page_id, attr, value) -> page_id e attr podem ser unique!
 -   CRUD Newletter sendo populada apenas pelo site
 -   Ao finalizar CRUDS, verificar se todos os onDelete estão corretos nas migrations (só bater o olho rapidinho, já verifiquei)
+-   Update Avatar
+-   ImageModel static get computed()
+
+# hook ImageModel (beforeDelete)
+
+-   Deleção do user deve deletar avatar do S3
+-   deleção do avatar deve deletar avatar do S3
+-   upload de outro avatar deve deletar o avatar antigo do s3
+-   (PageController) uploadImageBackground / deleteImageBackground devem deletar o arquivo do s3
 
 ## whishlist
 

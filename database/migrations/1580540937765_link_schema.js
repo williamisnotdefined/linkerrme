@@ -33,7 +33,7 @@ class LinkSchema extends Schema {
                 .notNullable()
                 .defaultTo(false)
             table
-                .boolean('active')
+                .boolean('is_active')
                 .notNullable()
                 .defaultTo(false)
 
