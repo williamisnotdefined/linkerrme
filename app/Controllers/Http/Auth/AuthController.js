@@ -27,7 +27,7 @@ class AuthController {
         }
     }
 
-    async authenticatedWithGoogle({ response, ally, auth }) {
+    async authenticatedWithGoogle({ response, ally, auth, antl }) {
         const trx = await Database.beginTransaction()
 
         try {
