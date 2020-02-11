@@ -13,9 +13,8 @@ ImageHook.deleteS3Image = async image => {
      * ImageBackground da página | s3 path: (pages/${userId}/${pageId}/${imageName})
      * Thumb dos links - TODO
      */
-    // console.log(image.toJSON())
+
     if (image.image_type_id == ImageTypes.PageBackground) {
-        // userId, pageId, imageName
         const page = await Page.findBy('image_background_id', image.id)
 
         await deleteImageBackgroundFromS3(

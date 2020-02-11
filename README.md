@@ -48,22 +48,18 @@ https://console.developers.google.com/apis/credentials
 
 -   Testar validators (validate all)
 
-## current task
+## tasks
 
 -   CRUD de links (text, url, page_id, image_id, is_newsletter)
 -   CRUD de Links sociais (social_link_id, url, page_id)
 -   CRUD PageConfig (page_id, attr, value) -> page_id e attr podem ser unique!
 -   CRUD Newletter sendo populada apenas pelo site
--   Ao finalizar CRUDS, verificar se todos os onDelete estão corretos nas migrations (só bater o olho rapidinho, já verifiquei)
+
 -   Auth Controller - Update Avatar (deve atualizar e deletar o avatar antigo)
-
-# hook ImageModel (beforeDelete)
-
--   Deleção do user deve deletar avatar do S3
--   deleção do avatar deve deletar avatar do S3
+-   Ao finalizar CRUDS, verificar se todos os onDelete estão corretos nas migrations (só bater o olho rapidinho, já verifiquei)
 
 ## whishlist
 
--   expires na config da amazon (enviando imagem) - CacheControl
 -   melhorar as response dos controllers (status(XXX) ...)
+-   Fazer o delete do usuário (e excluir tudo o que é relacionado a ele no banco e no S3)
 -   Ver se não tem como fazer tipo o objects do python para não precisar passar user_id nas queries
