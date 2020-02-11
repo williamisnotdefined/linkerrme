@@ -4,9 +4,9 @@ const Axios = use('axios')
 const Sharp = use('sharp')
 const FileType = use('file-type')
 
-const { moveAvatarToS3 } = use('App/Helpers/Image')
+const { moveAvatarToS3, getImageHash } = use('App/Helpers/Image')
 
-const uploadGoogleAvatarToS3 = async (userId, avatar) => {
+const uploadGoogleAvatarToS3 = async avatar => {
     if (avatar) {
         const { status, data: avatarFile } = await Axios({
             url: avatar,
@@ -23,10 +23,12 @@ const uploadGoogleAvatarToS3 = async (userId, avatar) => {
                 .resize(200, 200)
                 .toBuffer()
 
-            await moveAvatarToS3(fileProcessed, userId, ext, mime)
+            const filename = await getImageHash(fileProcessed)
+
+            await moveAvatarToS3(fileProcessed, filename, ext, mime)
 
             return {
-                filename: userId,
+                filename,
                 ext
             }
         }

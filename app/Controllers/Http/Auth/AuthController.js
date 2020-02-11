@@ -52,7 +52,7 @@ class AuthController {
         }
     }
 
-    async whoAmI({ request, response, auth }) {
+    async whoAmI({ response, auth }) {
         const user = await auth.getUser()
         return response.status(200).send(user)
     }

@@ -37,7 +37,6 @@ class UserService {
             const imageType = await ImageType.findBy('name', 'user_avatar')
 
             const { filename, ext } = await uploadGoogleAvatarToS3(
-                user.id,
                 googleUser.getAvatar()
             )
 

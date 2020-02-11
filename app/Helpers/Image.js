@@ -1,9 +1,15 @@
 'use strict'
 
 const Drive = use('Drive')
+const imageHash = use('node-image-hash')
 
-const moveAvatarToS3 = async (fileProcessed, userId, ext, mime) => {
-    await Drive.put(`avatar/${userId}.${ext}`, fileProcessed, {
+const getImageHash = async image => {
+    const { hash: filename } = await imageHash.hash(image, 10)
+    return `${filename}${Date.now()}`
+}
+
+const moveAvatarToS3 = async (fileProcessed, filename, ext, mime) => {
+    await Drive.put(`avatar/${filename}.${ext}`, fileProcessed, {
         ACL: 'public-read',
         ContentType: mime,
         CacheControl: 'max-age=31536000, public'
@@ -38,6 +44,7 @@ const ImageTypes = {
 
 module.exports = {
     ImageTypes,
+    getImageHash,
 
     moveAvatarToS3,
 
