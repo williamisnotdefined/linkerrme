@@ -26,8 +26,8 @@ const moveImageBackgroundToS3 = async (
     })
 }
 
-const deleteImageBackgroundFromS3 = (userId, pageId, imageName) => {
-    // TODO
+const deleteImageBackgroundFromS3 = async (userId, pageId, imageName) => {
+    await Drive.delete(`pages/${userId}/${pageId}/${imageName}`)
 }
 
 const ImageTypes = {
@@ -37,7 +37,10 @@ const ImageTypes = {
 }
 
 module.exports = {
+    ImageTypes,
+
     moveAvatarToS3,
+
     moveImageBackgroundToS3,
-    ImageTypes
+    deleteImageBackgroundFromS3
 }
