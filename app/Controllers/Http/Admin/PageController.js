@@ -205,6 +205,11 @@ class PageController {
         const trx = await Database.beginTransaction()
 
         try {
+            if (page.image_background_id) {
+                const oldImage = await Image.find(page.image_background_id, trx)
+                await oldImage.delete(trx)
+            }
+
             const { ext, name } = await processImageBackgroundAndUploadToS3(
                 user.id,
                 page.id,
@@ -225,11 +230,6 @@ class PageController {
                 },
                 trx
             )
-
-            if (page.image_background_id) {
-                const oldImage = await Image.find(page.image_background_id, trx)
-                await oldImage.delete(trx)
-            }
 
             page.image_background_id = image.id
             await page.save(trx)
