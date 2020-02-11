@@ -5,6 +5,7 @@ const Sharp = use('sharp')
 const FileType = use('file-type')
 
 const { moveAvatarToS3, getImageHash } = use('App/Helpers/Image')
+Sharp.cache({ files: 0 })
 
 const uploadGoogleAvatarToS3 = async avatar => {
     if (avatar) {

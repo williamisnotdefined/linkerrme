@@ -23,8 +23,6 @@ const moveImageBackgroundToS3 = async (
     imageName,
     mime
 ) => {
-    // o path pode ser /pages/USER_ID/PAGE_ID.EXT
-    //`page_image_background/${user.id}/${page.id}.${imageBackground.subtype}`
     await Drive.put(`pages/${userId}/${pageId}/${imageName}`, fileProcessed, {
         ACL: 'public-read',
         ContentType: mime,
