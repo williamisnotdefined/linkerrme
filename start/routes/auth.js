@@ -14,9 +14,13 @@ Route.group(() => {
         .middleware(['guest'])
     //.validator('Auth/Register')
 
+    Route.post('/update-avatar', 'AuthController.updateUserAvatar')
+        .as('auth.update_avatar')
+        .middleware(['auth:jwt', 'is:(admin or user)'])
+
     Route.get('/who-am-i', 'AuthController.whoAmI')
         .as('auth.who_am_i')
-        .middleware(['auth'])
+        .middleware(['auth:jwt', 'is:(admin or user)'])
 
     /*
 	// ROUTES TODO
