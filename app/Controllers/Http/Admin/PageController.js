@@ -210,7 +210,7 @@ class PageController {
                 await oldImage.delete(trx)
             }
 
-            const { ext, name } = await processImageBackgroundAndUploadToS3(
+            const { ext, filename } = await processImageBackgroundAndUploadToS3(
                 user.id,
                 page.id,
                 tmpPath
@@ -224,7 +224,7 @@ class PageController {
 
             const image = await Image.create(
                 {
-                    filename: name,
+                    filename,
                     ext,
                     image_type_id: imageType.id
                 },

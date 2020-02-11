@@ -61,8 +61,6 @@ https://console.developers.google.com/apis/credentials
 
 -   Deleção do user deve deletar avatar do S3
 -   deleção do avatar deve deletar avatar do S3
--   upload de outro avatar deve deletar o avatar antigo do s3
--   (PageController) uploadImageBackground / deleteImageBackground devem deletar o arquivo do s3
 
 ## whishlist
 

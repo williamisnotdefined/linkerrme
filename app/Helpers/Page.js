@@ -4,10 +4,8 @@ const UrlSlug = use('url-slug')
 const Sharp = use('sharp')
 const FileType = use('file-type')
 
-const Helpers = use('Helpers')
-
 const Page = use('App/Models/Page')
-const { moveImageBackgroundToS3 } = use('App/Helpers/Image')
+const { moveImageBackgroundToS3, getImageHash } = use('App/Helpers/Image')
 
 const MAX_SIZE_PAGE_IMAGE_BACKGROUND = 2560
 
@@ -60,19 +58,19 @@ const processImageBackgroundAndUploadToS3 = async (userId, pageId, tmpPath) => {
         .resize(imageWidth, imageHeight)
         .toBuffer()
 
-    const name = `bg`
+    const filename = await getImageHash(resizedImage)
 
     await moveImageBackgroundToS3(
         resizedImage,
         userId,
         pageId,
-        `${name}.${ext}`,
+        `${filename}.${ext}`,
         mime
     )
 
     return {
         ext,
-        name
+        filename
     }
 }
 
