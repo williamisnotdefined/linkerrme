@@ -110,6 +110,10 @@ class LinkController {
 
     async update({ params, request, response }) {}
 
+    async saveThumb({ params, request, response }) {}
+
+    async deleteThumb({ params, request, response }) {}
+
     async destroy({ params, request, response }) {}
 }
 
