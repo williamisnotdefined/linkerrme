@@ -12,6 +12,8 @@
     "fail_updated": "Falha ao atualizar link, tente novamente.",
     "success_delete": "Link deletado com sucesso.",
     "fail_delete": "Não foi possível deletar, tente novamente.",
+    "fail_reorder": "Não foi possível reordenar, tente novamente.",
+    "success_reorder": "Links reordenados com sucesso.",
 
     "thumb_max_size": "O tamanho máximo é de {size}.",
     "thumb_saved": "Thumb salva com sucesso.",

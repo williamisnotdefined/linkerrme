@@ -53,7 +53,6 @@ https://console.developers.google.com/apis/credentials
 -   CRUD de links (text, url, page_id, image_id, is_newsletter, is_active, display_order)
 
     -   Thumb não é salva no update e sim na view de thumb
-    -   view para alterar display order (talvez só quando for fazer o front)
     -   Validators | antl
     -   decrement dispay_order na deleção dos links
 

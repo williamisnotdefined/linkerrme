@@ -149,7 +149,9 @@ class LinkController {
                 })
             }
 
-            const linkRaw = await Link.find(id)
+            const linkRaw = await Link.query()
+                .where({ id, page_id })
+                .first()
 
             if (!linkRaw) {
                 return response.status(404).send({
@@ -175,7 +177,60 @@ class LinkController {
         }
     }
 
-    async reorder({ params, request, response }) {}
+    async reorder({
+        params: { page_id },
+        request,
+        response,
+        transform,
+        antl,
+        auth
+    }) {
+        const { ids } = request.only(['ids'])
+
+        const trx = await Database.beginTransaction()
+
+        try {
+            const user = await auth.getUser()
+            const page = await Page.query()
+                .where({
+                    id: page_id,
+                    user_id: user.id
+                })
+                .first()
+
+            // verifica se o link que está sendo editado é de uma página que é do usuário logado
+            if (!page) {
+                return response.status(404).send({
+                    success: false,
+                    error: antl.formatMessage('link.not_page_owner')
+                })
+            }
+
+            let display_order = 0
+
+            for (let key in ids) {
+                const id = ids[key]
+                await Link.query(trx)
+                    .where({ id, page_id })
+                    .update({ display_order })
+
+                display_order++
+            }
+
+            await trx.commit()
+
+            return response.send({
+                success: true,
+                message: antl.formatMessage('link.success_reorder')
+            })
+        } catch (error) {
+            await trx.rollback()
+            return response.status(500).send({
+                success: false,
+                error: antl.formatMessage('link.fail_reorder')
+            })
+        }
+    }
 
     async saveThumb({ params, request, response }) {}
 
