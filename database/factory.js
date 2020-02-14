@@ -35,7 +35,8 @@ Factory.blueprint('App/Models/Link', (faker, i, data) => {
     return {
         text: faker.username(),
         url: faker.url(),
-        page_id: data.page_id
+        page_id: data.page_id,
+        display_order: i
     }
 })
 

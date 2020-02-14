@@ -4,17 +4,11 @@
 const Route = use('Route')
 
 Route.group(() => {
-    // Route.post(
-    //     '/page/upload-image-background/:id',
-    //     'PageController.uploadImageBackground'
-    // )
+    Route.get('/link/:page_id', 'LinkController.listLinkByPages')
 
-    // Route.delete(
-    //     '/page/delete-image-background/:id',
-    //     'PageController.deleteImageBackground'
-    // )
-
-    Route.resource('link', 'LinkController').apiOnly()
+    Route.resource('link', 'LinkController')
+        .apiOnly()
+        .except(['index'])
     // .validator(
     //     new Map([
     //         ['page.store', 'Admin/Page/Store'],

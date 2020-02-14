@@ -4,11 +4,55 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-/**
- * Resourceful controller for interacting with links
- */
+const Link = use('App/Models/Link')
+const Page = use('App/Models/Page')
+
+const LinkTransformer = use('App/Transformers/Admin/LinkTransformer')
+
 class LinkController {
-    async index({ request, response }) {}
+    async listLinkByPages({
+        params: { page_id },
+        response,
+        auth,
+        paginate,
+        transform,
+        antl
+    }) {
+        try {
+            const user = await auth.getUser()
+
+            const page = await Page.query()
+                .where({
+                    id: page_id,
+                    user_id: user.id
+                })
+                .first()
+
+            if (!page) {
+                return response.status(404).send({
+                    success: false,
+                    error: antl.formatMessage('link.page_not_found')
+                })
+            }
+
+            const linksRaw = await Link.query()
+                .where('page_id', page.id)
+                .orderBy('id', 'display_order')
+                .paginate(paginate.page, paginate.limit)
+
+            const links = await transform.paginate(linksRaw, LinkTransformer)
+
+            return response.send({
+                success: true,
+                links
+            })
+        } catch (error) {
+            return response.status(500).send({
+                success: false,
+                error: antl.formatMessage('link.cant_list')
+            })
+        }
+    }
 
     async store({ request, response }) {}
 

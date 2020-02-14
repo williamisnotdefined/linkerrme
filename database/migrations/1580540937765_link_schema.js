@@ -9,7 +9,7 @@ class LinkSchema extends Schema {
             table.increments()
 
             table.string('text', 250).notNullable()
-            table.string('url', 250).notNullable()
+            table.string('url', 250)
 
             table
                 .integer('page_id')
@@ -36,6 +36,8 @@ class LinkSchema extends Schema {
                 .boolean('is_active')
                 .notNullable()
                 .defaultTo(false)
+
+            table.integer('display_order').notNullable()
 
             table.timestamps()
         })

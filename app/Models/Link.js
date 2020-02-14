@@ -8,12 +8,12 @@ class Link extends Model {
         super.boot()
     }
 
-    pages() {
-        return this.belongsTo('App/Models/Page')
+    page() {
+        return this.belongsTo('App/Models/Page', 'page_id', 'id')
     }
 
-    images() {
-        return this.hasOne('App/Models/Image')
+    image() {
+        return this.belongsTo('App/Models/Image', 'image_id', 'id')
     }
 }
 

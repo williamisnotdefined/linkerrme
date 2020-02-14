@@ -1,0 +1,18 @@
+{
+    "cant_list": "Erro ao listar links, tente novamente.",
+    "page_not_found": "Página não encontrada.",
+
+    "cant_create": "Erro ao criar link, tente novamente.",
+
+    "text_required": "O texto do link é obrigatório.",
+
+    "success_updated": "Link atualizado com sucesso.",
+    "fail_updated": "Falha ao atualizar link, tente novamente.",
+    "success_deleted": "Link deletado com sucesso.",
+
+    "thumb_max_size": "O tamanho máximo é de {size}.",
+    "thumb_saved": "Thumb salva com sucesso.",
+    "thumb_fail": "Falha ao salvar thumb, tente novamente.",
+    "thumb_deleted": "Thumb deletada com sucesso.",
+    "thumb_delete_fail": "Falha ao deletar thumb, tente novamente."
+}

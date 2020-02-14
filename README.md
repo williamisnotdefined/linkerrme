@@ -51,12 +51,12 @@ https://console.developers.google.com/apis/credentials
 ## tasks
 
 -   CRUD de links (text, url, page_id, image_id, is_newsletter)
+    -   Validators | antl
 -   CRUD de Links sociais (social_link_id, url, page_id)
 -   CRUD PageConfig (page_id, attr, value) -> page_id e attr podem ser unique!
 -   CRUD Newletter sendo populada apenas pelo site
 
 -   UserTransformer
--   Auth Controller - Update Avatar (deve atualizar e deletar o avatar antigo)
 -   Ao finalizar CRUDS, verificar se todos os onDelete estão corretos nas migrations (só bater o olho rapidinho, já verifiquei)
 
 ## whishlist
