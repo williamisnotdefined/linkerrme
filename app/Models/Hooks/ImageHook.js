@@ -2,7 +2,9 @@
 
 const Page = use('App/Models/Page')
 
-const { ImageTypes, deleteImageBackgroundFromS3 } = use('App/Helpers/Image')
+const { ImageTypes, deleteImageBackgroundFromS3, deleteAvatarFromS3 } = use(
+    'App/Helpers/Image'
+)
 
 const ImageHook = (exports = module.exports = {})
 
@@ -23,5 +25,6 @@ ImageHook.deleteS3Image = async image => {
             `${image.filename}.${image.ext}`
         )
     } else if (image.image_type_id == ImageTypes.UserAvatar) {
+        await deleteAvatarFromS3(`${image.filename}.${image.ext}`)
     }
 }

@@ -1,0 +1,6 @@
+{
+    "avatar_required": "Image is required.",
+    "avatar_max_size": "The maximum size for an image is {size}.",
+    "avatar_saved": "Avatar saved successfully.",
+    "avatar_fail": "Cannt save avatar, try again."
+}

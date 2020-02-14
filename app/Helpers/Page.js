@@ -7,7 +7,7 @@ const FileType = use('file-type')
 const Page = use('App/Models/Page')
 const { moveImageBackgroundToS3, getImageHash } = use('App/Helpers/Image')
 
-const MAX_SIZE_PAGE_IMAGE_BACKGROUND = 2560
+const MAX_SIZE_PAGE_IMAGE_BACKGROUND = 1500 //2560
 Sharp.cache({ files: 0 })
 
 const generatePageSlug = async (pageName, excludePage = null) => {

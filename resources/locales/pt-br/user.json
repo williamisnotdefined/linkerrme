@@ -1,0 +1,6 @@
+{
+    "avatar_required": "É obrigatório o envio de uma imagem.",
+    "avatar_max_size": "O tamanho máximo é de {size}.",
+    "avatar_saved": "Avatar salvo com sucesso.",
+    "avatar_fail": "Falha ao salvar, tente novamente."
+}

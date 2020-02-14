@@ -4,7 +4,7 @@ const Drive = use('Drive')
 const imageHash = use('node-image-hash')
 
 const getImageHash = async image => {
-    const { hash: filename } = await imageHash.hash(image, 10)
+    const { hash: filename } = await imageHash.hash(image, 8)
     return `${filename}${Date.now()}`
 }
 
@@ -34,6 +34,10 @@ const deleteImageBackgroundFromS3 = async (userId, pageId, imageName) => {
     await Drive.delete(`pages/${userId}/${pageId}/${imageName}`)
 }
 
+const deleteAvatarFromS3 = async imageName => {
+    await Drive.delete(`avatar/${imageName}`)
+}
+
 const ImageTypes = {
     PageBackground: 1,
     LinkThumb: 2,
@@ -45,6 +49,7 @@ module.exports = {
     getImageHash,
 
     moveAvatarToS3,
+    deleteAvatarFromS3,
 
     moveImageBackgroundToS3,
     deleteImageBackgroundFromS3

@@ -2,3 +2,4 @@
 
 require('./page')
 require('./link')
+require('./user')
