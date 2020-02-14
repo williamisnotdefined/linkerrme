@@ -9,12 +9,12 @@ Route.group(() => {
     Route.resource('link', 'LinkController')
         .apiOnly()
         .except(['index', 'show'])
-    // .validator(
-    //     new Map([
-    //         ['page.store', 'Admin/Page/Store'],
-    //         ['page.update', 'Admin/Page/Update']
-    //     ])
-    // )
+        .validator(
+            new Map([
+                ['link.store', 'Admin/Link/Store']
+                // ['page.update', 'Admin/Page/Update']
+            ])
+        )
 })
     .prefix('v1/admin')
     .namespace('Admin')

@@ -50,8 +50,12 @@ https://console.developers.google.com/apis/credentials
 
 ## tasks
 
--   CRUD de links (text, url, page_id, image_id, is_newsletter)
+-   CRUD de links (text, url, page_id, image_id, is_newsletter, is_active, display_order)
+    -   Store é apenas de text + url, o resto é update (text, url / is_newsletter, page_id)
+    -   Thumb não é salva no update e sim na view de thumb
+    -   view para alterar display order (talvez só quando for fazer o front)
     -   Validators | antl
+    -   decrement dispay_order na deleção dos links
 -   CRUD de Links sociais (social_link_id, url, page_id)
 -   CRUD PageConfig (page_id, attr, value) -> page_id e attr podem ser unique!
 -   CRUD Newletter sendo populada apenas pelo site

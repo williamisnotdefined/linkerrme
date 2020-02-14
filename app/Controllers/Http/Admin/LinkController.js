@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Database = use('Database')
+
 const Link = use('App/Models/Link')
 const Page = use('App/Models/Page')
 
@@ -54,7 +56,57 @@ class LinkController {
         }
     }
 
-    async store({ request, response }) {}
+    async store({ request, response, transform, antl }) {
+        const { text, url, is_newsletter, page_id } = request.only([
+            'text',
+            'url',
+            'is_newsletter',
+            'page_id'
+        ])
+
+        if (!url && !is_newsletter) {
+            return response.status(400).send({
+                success: false,
+                message: antl.formatMessage('link.url_required')
+            })
+        }
+
+        const trx = await Database.beginTransaction()
+
+        try {
+            await Link.query()
+                .transacting(trx)
+                .where('page_id', page_id)
+                .increment('display_order')
+
+            const linkRaw = await Link.create(
+                {
+                    text,
+                    url,
+                    is_newsletter,
+                    page_id,
+                    display_order: 0
+                },
+                trx
+            )
+
+            const link = await transform.item(linkRaw, LinkTransformer)
+
+            await trx.commit()
+
+            return response.status(201).send({
+                success: true,
+                link
+            })
+        } catch (error) {
+            await trx.rollback()
+
+            return response.status(500).send({
+                success: false,
+                error: antl.formatMessage('link.cant_create')
+            })
+        }
+    }
 
     async update({ params, request, response }) {}
 
