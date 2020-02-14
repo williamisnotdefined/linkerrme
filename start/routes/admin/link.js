@@ -8,7 +8,7 @@ Route.group(() => {
 
     Route.resource('link', 'LinkController')
         .apiOnly()
-        .except(['index'])
+        .except(['index', 'show'])
     // .validator(
     //     new Map([
     //         ['page.store', 'Admin/Page/Store'],
