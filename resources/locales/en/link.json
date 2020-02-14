@@ -2,13 +2,13 @@
     "cant_list": "Error listing links, please try again.",
 
     "text_required": "Link text is required.",
-    "page_not_found": "Page not found.",
     "page_required": "Page is required to create a link.",
     "url_required": "Url is required.",
+    "link_not_found": "Link not found.",
+    "not_page_owner": "You are not owner of this page.",
 
     "cant_create": "Error creating link, please try again.",
 
-    "success_updated": "Link updated successfully.",
     "fail_updated": "Cann't update link, try again.",
     "success_delete": "Link deleted successfully.",
     "fail_delete": "Cann't delete link, try again.",

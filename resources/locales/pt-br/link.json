@@ -2,13 +2,13 @@
     "cant_list": "Erro ao listar links, tente novamente.",
 
     "text_required": "O texto do link é obrigatório.",
-    "page_not_found": "Página não encontrada.",
     "page_required": "É obrigatório informar uma página para criar um link.",
     "url_required": "Url é obrigatória.",
+    "link_not_found": "Link não encontrado.",
+    "not_page_owner": "Você não é o dono desta página.",
 
     "cant_create": "Erro ao criar link, tente novamente.",
 
-    "success_updated": "Link atualizado com sucesso.",
     "fail_updated": "Falha ao atualizar link, tente novamente.",
     "success_delete": "Link deletado com sucesso.",
     "fail_delete": "Não foi possível deletar, tente novamente.",

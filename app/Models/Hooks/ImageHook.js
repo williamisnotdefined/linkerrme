@@ -26,5 +26,7 @@ ImageHook.deleteS3Image = async image => {
         )
     } else if (image.image_type_id == ImageTypes.UserAvatar) {
         await deleteAvatarFromS3(`${image.filename}.${image.ext}`)
+    } else if (image.image_type_id == ImageTypes.LinkThumb) {
+        // TODO
     }
 }

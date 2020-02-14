@@ -33,7 +33,7 @@ class LinkController {
             if (!page) {
                 return response.status(404).send({
                     success: false,
-                    error: antl.formatMessage('link.page_not_found')
+                    error: antl.formatMessage('link.not_page_owner')
                 })
             }
 
@@ -56,7 +56,7 @@ class LinkController {
         }
     }
 
-    async store({ request, response, transform, antl }) {
+    async store({ request, response, transform, antl, auth }) {
         const { text, url, is_newsletter, page_id } = request.only([
             'text',
             'url',
@@ -74,6 +74,21 @@ class LinkController {
         const trx = await Database.beginTransaction()
 
         try {
+            const user = await auth.getUser()
+            const page = await Page.query()
+                .where({
+                    id: page_id,
+                    user_id: user.id
+                })
+                .first()
+
+            if (!page) {
+                return response.status(403).send({
+                    success: false,
+                    error: antl.formatMessage('link.not_page_owner')
+                })
+            }
+
             await Link.query()
                 .transacting(trx)
                 .where('page_id', page_id)
@@ -108,7 +123,59 @@ class LinkController {
         }
     }
 
-    async update({ params, request, response }) {}
+    async update({ params: { id }, request, response, transform, antl, auth }) {
+        const linkData = request.only([
+            'text',
+            'url',
+            'is_newsletter',
+            'is_active'
+        ])
+        const page_id = request.input('page_id')
+
+        try {
+            const user = await auth.getUser()
+            const page = await Page.query()
+                .where({
+                    id: page_id,
+                    user_id: user.id
+                })
+                .first()
+
+            // verifica se o link que está sendo editado é de uma página que é do usuário logado
+            if (!page) {
+                return response.status(404).send({
+                    success: false,
+                    error: antl.formatMessage('link.not_page_owner')
+                })
+            }
+
+            const linkRaw = await Link.find(id)
+
+            if (!linkRaw) {
+                return response.status(404).send({
+                    success: false,
+                    error: antl.formatMessage('link.link_not_found')
+                })
+            }
+
+            linkRaw.merge(linkData)
+            await linkRaw.save()
+
+            const link = await transform.item(linkRaw, LinkTransformer)
+
+            return response.send({
+                success: true,
+                link
+            })
+        } catch (error) {
+            return response.status(500).send({
+                success: false,
+                error: antl.formatMessage('link.fail_updated')
+            })
+        }
+    }
+
+    async reorder({ params, request, response }) {}
 
     async saveThumb({ params, request, response }) {}
 

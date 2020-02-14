@@ -16,6 +16,10 @@ const moveAvatarToS3 = async (fileProcessed, filename, ext, mime) => {
     })
 }
 
+const deleteAvatarFromS3 = async imageName => {
+    await Drive.delete(`avatar/${imageName}`)
+}
+
 const moveImageBackgroundToS3 = async (
     fileProcessed,
     userId,
@@ -32,10 +36,6 @@ const moveImageBackgroundToS3 = async (
 
 const deleteImageBackgroundFromS3 = async (userId, pageId, imageName) => {
     await Drive.delete(`pages/${userId}/${pageId}/${imageName}`)
-}
-
-const deleteAvatarFromS3 = async imageName => {
-    await Drive.delete(`avatar/${imageName}`)
 }
 
 const ImageTypes = {

@@ -10,13 +10,15 @@ Route.group(() => {
 
     Route.delete('/link/:page_id/delete-thumb', 'LinkController.deleteThumb')
 
+    Route.post('/link/:page_id/reorder', 'LinkController.reorder')
+
     Route.resource('link', 'LinkController')
         .apiOnly()
         .except(['index', 'show'])
         .validator(
             new Map([
-                ['link.store', 'Admin/Link/Store']
-                // ['page.update', 'Admin/Page/Update']
+                ['link.store', 'Admin/Link/Store'],
+                ['page.update', 'Admin/Link/Update']
             ])
         )
 })
