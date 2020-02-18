@@ -4,6 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Env = use('Env')
 const Database = use('Database')
 
 const UserService = use('App/Services/User')
@@ -54,7 +55,11 @@ class AuthController {
 
     async whoAmI({ response, auth }) {
         const user = await auth.getUser()
-        return response.status(200).send(user)
+
+        return response.status(200).send({
+            user,
+            testing: Env.get('TESTING')
+        })
     }
 }
 
