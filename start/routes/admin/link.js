@@ -8,13 +8,21 @@ Route.group(() => {
 
     Route.post('/link/:page_id/:link_id/save-thumb', 'LinkController.saveThumb')
 
-    Route.delete('/link/:page_id/delete-thumb', 'LinkController.deleteThumb')
+    Route.delete(
+        '/link/:page_id/:link_id/delete-thumb',
+        'LinkController.deleteThumb'
+    )
+
+    Route.delete(
+        '/link/:page_id/:link_id/delete-link',
+        'LinkController.destroy'
+    )
 
     Route.post('/link/:page_id/reorder', 'LinkController.reorder')
 
     Route.resource('link', 'LinkController')
         .apiOnly()
-        .except(['index', 'show'])
+        .except(['index', 'show', 'delete'])
         .validator(
             new Map([
                 ['link.store', 'Admin/Link/Store'],

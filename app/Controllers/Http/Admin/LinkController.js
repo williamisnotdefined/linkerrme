@@ -188,7 +188,6 @@ class LinkController {
         request,
         response,
         transform,
-        paginate,
         antl,
         auth
     }) {
@@ -215,8 +214,7 @@ class LinkController {
 
             let display_order = 0
 
-            for (let key in ids) {
-                const id = ids[key]
+            for (let id of ids) {
                 await Link.query(trx)
                     .where({ id, page_id })
                     .update({ display_order })
@@ -354,8 +352,11 @@ class LinkController {
             fs.unlinkSync(tmpPath)
             await trx.commit()
 
+            const linkUpdated = await transform.item(link, LinkTransformer)
+
             return response.status(200).send({
                 success: true,
+                link: linkUpdated,
                 message: antl.formatMessage('link.thumb_saved')
             })
         } catch (error) {
@@ -369,9 +370,139 @@ class LinkController {
         }
     }
 
-    async deleteThumb({ params, request, response }) {}
+    async deleteThumb({ params: { page_id, link_id }, response, auth, antl }) {
+        const trx = await Database.beginTransaction()
 
-    async destroy({ params, request, response }) {}
+        try {
+            const user = await auth.getUser()
+            const page = await Page.findBy(
+                {
+                    id: page_id,
+                    user_id: user.id
+                },
+                trx
+            )
+
+            if (!page) {
+                return response.status(404).send({
+                    success: false,
+                    error: antl.formatMessage('link.not_page_owner')
+                })
+            }
+
+            const link = await Link.findBy(
+                {
+                    id: link_id,
+                    page_id
+                },
+                trx
+            )
+
+            if (!link) {
+                return response.status(404).send({
+                    success: false,
+                    error: antl.formatMessage('link.link_not_found')
+                })
+            }
+
+            const image = await Image.find(link.image_id, trx)
+
+            if (!image) {
+                return response.status(200).send({
+                    success: true,
+                    message: antl.formatMessage('link.thumb_deleted')
+                })
+            }
+
+            await image.delete(trx)
+            await trx.commit()
+
+            return response.status(200).send({
+                success: true,
+                message: antl.formatMessage('link.thumb_deleted')
+            })
+        } catch (error) {
+            await trx.rollback()
+
+            return response.status(400).send({
+                success: false,
+                error: antl.formatMessage('link.thumb_delete_fail')
+            })
+        }
+    }
+
+    async destroy({ params: { page_id, link_id }, response, auth, antl }) {
+        const trx = await Database.beginTransaction()
+
+        try {
+            const user = await auth.getUser()
+            const page = await Page.findBy(
+                {
+                    id: page_id,
+                    user_id: user.id
+                },
+                trx
+            )
+
+            if (!page) {
+                return response.status(404).send({
+                    success: false,
+                    error: antl.formatMessage('link.not_page_owner')
+                })
+            }
+
+            const link = await Link.findBy(
+                {
+                    id: link_id,
+                    page_id
+                },
+                trx
+            )
+
+            if (!link) {
+                return response.status(404).send({
+                    success: false,
+                    error: antl.formatMessage('link.link_not_found')
+                })
+            }
+
+            if (link.image_id) {
+                const image = await Image.find(link.image_id)
+                await image.delete(trx)
+            }
+
+            await link.delete(trx)
+
+            // reajustar os display_orders
+            let display_order = 0
+            const links = await Link.query(trx)
+                .where({ page_id })
+                .orderBy('display_order')
+                .fetch()
+
+            for (let _link of links.rows) {
+                await Link.query(trx)
+                    .where({ id: _link.id, page_id })
+                    .update({ display_order })
+
+                display_order++
+            }
+
+            await trx.commit()
+
+            return response.send({
+                success: true,
+                error: antl.formatMessage('link.success_delete')
+            })
+        } catch (error) {
+            await trx.rollback()
+
+            return response.status(400).send({
+                success: false,
+                error: antl.formatMessage('link.fail_delete')
+            })
+        }
+    }
 }
 
 module.exports = LinkController

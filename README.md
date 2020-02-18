@@ -52,8 +52,6 @@ https://console.developers.google.com/apis/credentials
 
 -   CRUD de links (text, url, page_id, image_id, is_newsletter, is_active, display_order)
 
-    -   try catch + transaction delete page controller
-    -   Thumb não é salva no update / store e sim na view de thumb
     -   Validators | antl
     -   decrement dispay_order na deleção dos links
 

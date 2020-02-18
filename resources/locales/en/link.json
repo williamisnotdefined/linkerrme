@@ -6,6 +6,7 @@
     "url_required": "Url is required.",
     "link_not_found": "Link not found.",
     "not_page_owner": "You are not owner of this page.",
+    "page_not_found": "Page not found.",
 
     "cant_create": "Error creating link, please try again.",
 

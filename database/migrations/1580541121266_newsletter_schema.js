@@ -23,6 +23,13 @@ class NewsletterSchema extends Schema {
                 .inTable('links')
                 .onDelete('set null')
 
+            table.integer('user_id').unsigned()
+            table
+                .foreign('user_id')
+                .references('id')
+                .inTable('users')
+                .onDelete('cascade')
+
             table.timestamps()
         })
     }
