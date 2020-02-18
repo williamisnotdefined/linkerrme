@@ -50,17 +50,14 @@ https://console.developers.google.com/apis/credentials
 
 ## tasks
 
--   CRUD de links (text, url, page_id, image_id, is_newsletter, is_active, display_order)
-
-    -   Validators | antl
-    -   decrement dispay_order na deleção dos links
-
--   CRUD de Links sociais (social_link_id, url, page_id)
--   CRUD PageConfig (page_id, attr, value) -> page_id e attr podem ser unique!
+-   CRUD de Links sociais (social_link_id, url, page_id) // verificar se os cascades estão funcionando
+-   CRUD PageConfig (page_id, attr, value) -> page_id e attr podem ser unique! // na troca de template de page, deve ser resetado os PageConfig?
 -   CRUD Newletter sendo populada apenas pelo site
+-   error log
+-   rotas dos site
+-   cors
 
 -   UserTransformer
--   Ao finalizar CRUDS, verificar se todos os onDelete estão corretos nas migrations (só bater o olho rapidinho, já verifiquei)
 
 ## whishlist
 
