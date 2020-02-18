@@ -51,7 +51,7 @@ https://console.developers.google.com/apis/credentials
 ## tasks
 
 -   CRUD de Links sociais (social_link_id, url, page_id) // verificar se os cascades estão funcionando
--   CRUD PageConfig (page_id, attr, value) -> page_id e attr podem ser unique! // na troca de template de page, deve ser resetado os PageConfig?
+-   CRUD PageConfig (page_id, attr, value) -> page_id e attr podem ser unique! // na troca de template de page, deve ser resetado os PageConfig? melhor fazer junto com a interface
 -   CRUD Newletter sendo populada apenas pelo site
 -   error log
 -   rotas dos site
