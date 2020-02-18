@@ -52,7 +52,6 @@ https://console.developers.google.com/apis/credentials
 
 -   CRUD de links (text, url, page_id, image_id, is_newsletter, is_active, display_order)
 
-    -   Retornar lista de links no success do reorder
     -   Thumb não é salva no update e sim na view de thumb
     -   Validators | antl
     -   decrement dispay_order na deleção dos links

@@ -38,6 +38,28 @@ const deleteImageBackgroundFromS3 = async (userId, pageId, imageName) => {
     await Drive.delete(`pages/${userId}/${pageId}/${imageName}`)
 }
 
+const moveThumbLinkToS3 = async (
+    fileProcessed,
+    userId,
+    pageId,
+    imageName,
+    mime
+) => {
+    await Drive.put(
+        `pages/${userId}/${pageId}/links/${imageName}`,
+        fileProcessed,
+        {
+            ACL: 'public-read',
+            ContentType: mime,
+            CacheControl: 'max-age=31536000, public'
+        }
+    )
+}
+
+const deleteThumbLinkFromS3 = async (userId, pageId, imageName) => {
+    await Drive.delete(`pages/${userId}/${pageId}/links/${imageName}`)
+}
+
 const ImageTypes = {
     PageBackground: 1,
     LinkThumb: 2,
@@ -52,5 +74,8 @@ module.exports = {
     deleteAvatarFromS3,
 
     moveImageBackgroundToS3,
-    deleteImageBackgroundFromS3
+    deleteImageBackgroundFromS3,
+
+    moveThumbLinkToS3,
+    deleteThumbLinkFromS3
 }

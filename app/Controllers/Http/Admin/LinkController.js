@@ -182,6 +182,7 @@ class LinkController {
         request,
         response,
         transform,
+        paginate,
         antl,
         auth
     }) {
@@ -219,8 +220,16 @@ class LinkController {
 
             await trx.commit()
 
+            const linksRaw = await Link.query()
+                .where('page_id', page.id)
+                .orderBy('id', 'display_order')
+                .fetch()
+
+            const links = await transform.collection(linksRaw, LinkTransformer)
+
             return response.send({
                 success: true,
+                links,
                 message: antl.formatMessage('link.success_reorder')
             })
         } catch (error) {
