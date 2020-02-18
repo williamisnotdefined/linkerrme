@@ -16,7 +16,6 @@ class AdminLinkUpdate {
             'name.required': Antl.formatMessage('link.text_required'),
             'page_id.required': Antl.formatMessage('link.page_required'),
             'page_id.exists': Antl.formatMessage('link.page_not_found')
-            // falta required e exists de link
         }
     }
 }

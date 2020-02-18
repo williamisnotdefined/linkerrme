@@ -11,6 +11,7 @@
     "success_updated": "Página atualizada com sucesso.",
     "fail_updated": "Falha ao atualizar página, tente novamente.",
     "page_deleted": "Página deletada com sucesso.",
+    "fail_page_deleted": "Falha ao deletar página, tente novamente.",
 
     "image_background_required": "É obrigatório o envio de uma imagem.",
     "image_background_max_size": "O tamanho máximo é de {size}.",

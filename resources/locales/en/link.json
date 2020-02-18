@@ -15,6 +15,7 @@
     "fail_reorder": "Cann't reorder link, try again.",
     "success_reorder": "Reorder links successfully.",
 
+    "thumb_required": "Image is required.",
     "thumb_max_size": "The maximum size for a thumb is {size}.",
     "thumb_saved": "Thumb saved successfully.",
     "thumb_fail": "Cannt save thumb, try again.",

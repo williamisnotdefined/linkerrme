@@ -6,7 +6,7 @@ const Route = use('Route')
 Route.group(() => {
     Route.get('/link/:page_id', 'LinkController.listLinkByPages')
 
-    Route.post('/link/:page_id/save-thumb', 'LinkController.saveThumb')
+    Route.post('/link/:page_id/:link_id/save-thumb', 'LinkController.saveThumb')
 
     Route.delete('/link/:page_id/delete-thumb', 'LinkController.deleteThumb')
 

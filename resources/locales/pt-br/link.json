@@ -15,6 +15,7 @@
     "fail_reorder": "Não foi possível reordenar, tente novamente.",
     "success_reorder": "Links reordenados com sucesso.",
 
+    "thumb_required": "É obrigatório o envio de uma imagem.",
     "thumb_max_size": "O tamanho máximo é de {size}.",
     "thumb_saved": "Thumb salva com sucesso.",
     "thumb_fail": "Falha ao salvar thumb, tente novamente.",

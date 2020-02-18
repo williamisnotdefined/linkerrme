@@ -139,12 +139,30 @@ class PageController {
             user_id: user.id
         })
 
-        await page.delete()
+        const trx = await Database.beginTransaction()
 
-        return response.send({
-            success: true,
-            message: antl.formatMessage('page.page_deleted')
-        })
+        try {
+            if (page.image_background_id) {
+                const image = await Image.find(page.image_background_id, trx)
+                await image.delete(trx)
+            }
+
+            await page.delete(trx)
+
+            await trx.commit()
+
+            return response.send({
+                success: true,
+                message: antl.formatMessage('page.page_deleted')
+            })
+        } catch (error) {
+            await trx.rollback()
+
+            return response.status(400).send({
+                success: true,
+                message: antl.formatMessage('page.fail_page_deleted')
+            })
+        }
     }
 
     async uploadImageBackground({
@@ -195,7 +213,10 @@ class PageController {
                 }
             }
         } catch (error) {
-            return response.status(400).send()
+            return response.status(400).send({
+                success: false,
+                error: antl.formatMessage('page.image_background_fail')
+            })
         }
 
         const tmpPath = Helpers.tmpPath(

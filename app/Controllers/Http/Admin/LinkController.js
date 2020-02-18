@@ -4,10 +4,16 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const fs = use('fs')
+const Helpers = use('Helpers')
 const Database = use('Database')
 
 const Link = use('App/Models/Link')
 const Page = use('App/Models/Page')
+const Image = use('App/Models/Image')
+const ImageType = use('App/Models/ImageType')
+
+const { processThumbLinkAndUploadToS3 } = use('App/Helpers/Link')
 
 const LinkTransformer = use('App/Transformers/Admin/LinkTransformer')
 
@@ -241,7 +247,127 @@ class LinkController {
         }
     }
 
-    async saveThumb({ params, request, response }) {}
+    async saveThumb({
+        params: { page_id, link_id },
+        request,
+        response,
+        auth,
+        antl,
+        transform
+    }) {
+        const user = await auth.getUser()
+        const page = await Page.findBy({
+            id: page_id,
+            user_id: user.id
+        })
+
+        if (!page) {
+            return response.status(404).send({
+                success: false,
+                error: antl.formatMessage('link.not_page_owner')
+            })
+        }
+
+        const link = await Link.findBy({
+            id: link_id,
+            page_id
+        })
+
+        if (!link) {
+            return response.status(404).send({
+                success: false,
+                error: antl.formatMessage('link.link_not_found')
+            })
+        }
+
+        const thumb = request.file('link_thumb', {
+            types: ['image'],
+            size: '20mb'
+        })
+
+        if (!thumb) {
+            return response.status(400).send({
+                success: false,
+                error: antl.formatMessage('link.thumb_required')
+            })
+        }
+
+        const tmpLinkFileName = `${link_id}${Date.now()}.${thumb.subtype}`
+
+        try {
+            await thumb.move(Helpers.tmpPath(`link/${user.id}/${page_id}`), {
+                name: tmpLinkFileName,
+                overwrite: true
+            })
+
+            if (!thumb.moved()) {
+                const { type: errorType } = thumb.error()
+
+                if (errorType == 'size') {
+                    return response.status(400).send({
+                        success: false,
+                        error: antl.formatMessage('link.thumb_max_size', {
+                            size: '20mb'
+                        })
+                    })
+                }
+            }
+        } catch (error) {
+            return response.status(400).send({
+                success: false,
+                error: antl.formatMessage('link.thumb_fail')
+            })
+        }
+
+        const tmpPath = Helpers.tmpPath(
+            `link/${user.id}/${page_id}/${tmpLinkFileName}`
+        )
+
+        const trx = await Database.beginTransaction()
+
+        try {
+            if (link.image_id) {
+                const oldThumb = await Image.find(link.image_id)
+                await oldThumb.delete(trx)
+            }
+
+            const { ext, filename } = await processThumbLinkAndUploadToS3(
+                user.id,
+                page.id,
+                tmpPath
+            )
+
+            const imageType = await ImageType.findBy('name', 'link_thumb', trx)
+
+            const image = await Image.create(
+                {
+                    filename,
+                    ext,
+                    image_type_id: imageType.id
+                },
+                trx
+            )
+
+            link.image_id = image.id
+            await link.save(trx)
+
+            fs.unlinkSync(tmpPath)
+            await trx.commit()
+
+            return response.status(200).send({
+                success: true,
+                message: antl.formatMessage('link.thumb_saved')
+            })
+        } catch (error) {
+            fs.unlinkSync(tmpPath)
+            await trx.rollback()
+
+            return response.status(500).send({
+                success: false,
+                error: antl.formatMessage('link.thumb_fail')
+            })
+        }
+    }
 
     async deleteThumb({ params, request, response }) {}
 

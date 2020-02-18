@@ -1,42 +1,14 @@
 'use strict'
 
-const UrlSlug = use('url-slug')
 const Sharp = use('sharp')
 const FileType = use('file-type')
 
-const Page = use('App/Models/Page')
-const { moveImageBackgroundToS3, getImageHash } = use('App/Helpers/Image')
+const { moveThumbLinkToS3, getImageHash } = use('App/Helpers/Image')
 
-const MAX_SIZE_PAGE_IMAGE_BACKGROUND = 2560
+const MAX_SIZE_PAGE_IMAGE_BACKGROUND = 200
 Sharp.cache({ files: 0 })
 
-const generatePageSlug = async (pageName, excludePage = null) => {
-    const originalSlug = UrlSlug(pageName)
-    let slug = originalSlug
-    let counter = 2
-    let createdSlug = false
-
-    while (!createdSlug) {
-        const pageQuery = Page.query().where('slug', slug)
-
-        if (excludePage) {
-            pageQuery.whereNot('id', excludePage)
-        }
-
-        const page = await pageQuery.first()
-
-        if (page) {
-            slug = `${originalSlug}-${counter}`
-            counter++
-        } else {
-            createdSlug = true
-        }
-    }
-
-    return slug
-}
-
-const processImageBackgroundAndUploadToS3 = async (userId, pageId, tmpPath) => {
+const processThumbLinkAndUploadToS3 = async (userId, pageId, tmpPath) => {
     const { ext, mime } = await FileType.fromFile(tmpPath)
 
     const { width, height } = await Sharp(tmpPath).metadata()
@@ -61,7 +33,7 @@ const processImageBackgroundAndUploadToS3 = async (userId, pageId, tmpPath) => {
 
     const filename = await getImageHash(resizedImage)
 
-    await moveImageBackgroundToS3(
+    await moveThumbLinkToS3(
         resizedImage,
         userId,
         pageId,
@@ -76,6 +48,5 @@ const processImageBackgroundAndUploadToS3 = async (userId, pageId, tmpPath) => {
 }
 
 module.exports = {
-    generatePageSlug,
-    processImageBackgroundAndUploadToS3
+    processThumbLinkAndUploadToS3
 }
