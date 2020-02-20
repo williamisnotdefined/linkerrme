@@ -8,8 +8,8 @@ class PageSocialLink extends Model {
         super.boot()
     }
 
-    pages() {
-        return this.belongsTo('App/Models/Page')
+    socialLink() {
+        return this.hasOne('App/Models/SocialLink', 'social_link_id', 'id')
     }
 }
 

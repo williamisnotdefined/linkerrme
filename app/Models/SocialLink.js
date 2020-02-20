@@ -7,10 +7,6 @@ class SocialLink extends Model {
     static boot() {
         super.boot()
     }
-
-    pagesSocialLink() {
-        return this.belongsToMany('App/Models/PageSocialLink')
-    }
 }
 
 module.exports = SocialLink

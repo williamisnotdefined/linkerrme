@@ -14,6 +14,21 @@ Route.group(() => {
         'PageController.deleteImageBackground'
     )
 
+    Route.post(
+        '/page/:page_id/add-social-network',
+        'PageController.addSocialNetwork'
+    ).validator('Admin/Page/SocialLink')
+
+    Route.put(
+        '/page/:page_id/edit-social-network/:page_social_id',
+        'PageController.editSocialNetwork'
+    ).validator('Admin/Page/SocialLink')
+
+    Route.delete(
+        '/page/:id/delete-social-network',
+        'PageController.deleteSocialNetwork'
+    )
+
     Route.resource('page', 'PageController')
         .apiOnly()
         .validator(

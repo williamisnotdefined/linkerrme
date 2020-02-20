@@ -13,6 +13,9 @@ const Image = use('App/Models/Image')
 const ImageType = use('App/Models/ImageType')
 
 const PageTransformer = use('App/Transformers/Admin/PageTransformer')
+const PageSocialLinkTransformer = use(
+    'App/Transformers/Admin/PageSocialLinkTransformer'
+)
 const { generatePageSlug, processImageBackgroundAndUploadToS3 } = use(
     'App/Helpers/Page'
 )
@@ -302,6 +305,82 @@ class PageController {
             return response.status(400).send({
                 success: false,
                 error: antl.formatMessage('page.image_background_delete_fail')
+            })
+        }
+    }
+
+    async addSocialNetwork({
+        params: { page_id },
+        request,
+        response,
+        auth,
+        transform,
+        antl
+    }) {
+        try {
+            const user = await auth.getUser()
+            const { url, social_link_id } = request.only([
+                'url',
+                'social_link_id'
+            ])
+            const page = await Page.findBy({ id: page_id, user_id: user.id })
+
+            if (!page) {
+                return response.status(400).send({
+                    success: false,
+                    error: antl.formatMessage('page.page_not_found')
+                })
+            }
+
+            const pageSocialLinkRaw = await page.pageSocialLink().create({
+                url,
+                page_id,
+                social_link_id
+            })
+
+            const pageSocialLink = await transform.item(
+                pageSocialLinkRaw,
+                PageSocialLinkTransformer
+            )
+
+            return response.status(201).send({
+                success: true,
+                pageSocialLink
+            })
+        } catch (error) {
+            return response.status(500).send({
+                success: false,
+                error: antl.formatMessage('page.cannt_create_social_link')
+            })
+        }
+    }
+
+    async editSocialNetwork({
+        params: { page_id, page_social_id },
+        request,
+        response,
+        auth,
+        transform,
+        antl
+    }) {
+        try {
+            const user = await auth.getUser()
+            const { url, social_link_id } = request.only([
+                'url',
+                'social_link_id'
+            ])
+            const page = await Page.findBy({ id: page_id, user_id: user.id })
+
+            if (!page) {
+                return response.status(400).send({
+                    success: false,
+                    error: antl.formatMessage('page.page_not_found')
+                })
+            }
+        } catch (error) {
+            return response.status(500).send({
+                success: false,
+                error: antl.formatMessage('page.cannt_edit_social_link')
             })
         }
     }

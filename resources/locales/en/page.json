@@ -2,6 +2,8 @@
     "cant_list_pages": "Error listing pages, please try again.",
     "cant_create_page": "Error creating page, please try again.",
     "unavailable_page_slug": "Slug (url) unavailable.",
+    "not_page_owner": "You are not owner of this page.",
+    "page_not_found": "Page not found.",
 
     "name_required": "Page name is required.",
     "slug_required": "Page slug is required.",
@@ -18,5 +20,12 @@
     "image_background_saved": "Background image saved successfully.",
     "image_background_fail": "Cannt save background image, try again.",
     "image_background_deleted": "Image background deleted successfully.",
-    "image_background_delete_fail": "Cannt delete background image, try again."
+    "image_background_delete_fail": "Cannt delete background image, try again.",
+
+    "url_social_link_required": "Url is required.",
+    "url_social_link_url_invalid": "Invalid url.",
+    "social_link_id_required": "Social link is required.",
+    "social_link_id_does_not_exists": "Invalid social link.",
+    "cannt_create_social_link": "Cann't create social link, try again",
+    "cannt_edit_social_link": "Cann't edit social link, try again"
 }

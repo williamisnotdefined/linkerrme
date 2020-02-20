@@ -4,6 +4,9 @@ const BumblebeeTransformer = use('Bumblebee/Transformer')
 
 const TemplateTransformer = use('App/Transformers/Admin/TemplateTransformer')
 const ImageTransformer = use('App/Transformers/Admin/ImageTransformer')
+const PageSocialLinkTransformer = use(
+    'App/Transformers/Admin/PageSocialLinkTransformer'
+)
 
 /**
  * PageTransformer class
@@ -13,7 +16,7 @@ const ImageTransformer = use('App/Transformers/Admin/ImageTransformer')
  */
 class PageTransformer extends BumblebeeTransformer {
     static get defaultInclude() {
-        return ['template', 'image']
+        return ['template', 'image', 'pageSocialLink']
     }
 
     /* TODO AVAILABLE INCLUDES */
@@ -24,6 +27,13 @@ class PageTransformer extends BumblebeeTransformer {
 
     includeImage(page) {
         return this.item(page.getRelated('image'), ImageTransformer)
+    }
+
+    includePageSocialLink(page) {
+        return this.collection(
+            page.getRelated('pageSocialLink'),
+            PageSocialLinkTransformer
+        )
     }
 
     transform(page) {

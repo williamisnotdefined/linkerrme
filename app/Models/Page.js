@@ -19,6 +19,10 @@ class Page extends Model {
     template() {
         return this.belongsTo('App/Models/Template', 'template_id', 'id')
     }
+
+    pageSocialLink() {
+        return this.hasMany('App/Models/PageSocialLink')
+    }
 }
 
 module.exports = Page
