@@ -28,6 +28,11 @@ class PageSocialLinkSchema extends Schema {
                 .inTable('pages')
                 .onDelete('cascade')
 
+            table
+                .integer('display_order')
+                .notNullable()
+                .defaultTo(0)
+
             table.string('url', 250).notNullable()
             table.timestamps()
         })

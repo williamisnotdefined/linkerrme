@@ -27,5 +27,9 @@
     "social_link_id_required": "Social link is required.",
     "social_link_id_does_not_exists": "Invalid social link.",
     "cannt_create_social_link": "Cann't create social link, try again",
-    "cannt_edit_social_link": "Cann't edit social link, try again"
+    "cannt_edit_social_link": "Cann't edit social link, try again",
+    "cannt_delete_social_link": "Cann't delete social link, try again",
+    "page_social_link_deleted": "Social link deleted successfully.",
+    "cannt_reorder_social_links": "Cann't reorder social link, try again",
+    "reordered_social_links": "Social link ordered successfully."
 }

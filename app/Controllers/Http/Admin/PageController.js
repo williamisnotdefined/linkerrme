@@ -9,6 +9,7 @@ const Helpers = use('Helpers')
 const Database = use('Database')
 
 const Page = use('App/Models/Page')
+const PageSocialLink = use('App/Models/PageSocialLink')
 const Image = use('App/Models/Image')
 const ImageType = use('App/Models/ImageType')
 
@@ -317,13 +318,17 @@ class PageController {
         transform,
         antl
     }) {
+        const trx = await Database.beginTransaction()
         try {
             const user = await auth.getUser()
             const { url, social_link_id } = request.only([
                 'url',
                 'social_link_id'
             ])
-            const page = await Page.findBy({ id: page_id, user_id: user.id })
+            const page = await Page.findBy(
+                { id: page_id, user_id: user.id },
+                trx
+            )
 
             if (!page) {
                 return response.status(400).send({
@@ -332,22 +337,34 @@ class PageController {
                 })
             }
 
-            const pageSocialLinkRaw = await page.pageSocialLink().create({
-                url,
-                page_id,
-                social_link_id
-            })
+            await PageSocialLink.query()
+                .transacting(trx)
+                .where('page_id', page_id)
+                .increment('display_order')
+
+            const pageSocialLinkRaw = await page.pageSocialLink().create(
+                {
+                    url,
+                    page_id,
+                    social_link_id
+                },
+                trx
+            )
 
             const pageSocialLink = await transform.item(
                 pageSocialLinkRaw,
                 PageSocialLinkTransformer
             )
 
+            await trx.commit()
+
             return response.status(201).send({
                 success: true,
                 pageSocialLink
             })
         } catch (error) {
+            await trx.rollback()
+
             return response.status(500).send({
                 success: false,
                 error: antl.formatMessage('page.cannt_create_social_link')
@@ -365,10 +382,6 @@ class PageController {
     }) {
         try {
             const user = await auth.getUser()
-            const { url, social_link_id } = request.only([
-                'url',
-                'social_link_id'
-            ])
             const page = await Page.findBy({ id: page_id, user_id: user.id })
 
             if (!page) {
@@ -377,10 +390,154 @@ class PageController {
                     error: antl.formatMessage('page.page_not_found')
                 })
             }
+
+            const { url, social_link_id } = request.only([
+                'url',
+                'social_link_id'
+            ])
+
+            let pageSocialLink = await PageSocialLink.findBy({
+                id: page_social_id,
+                page_id
+            })
+
+            if (!pageSocialLink) {
+                return response.status(400).send({
+                    success: false,
+                    error: antl.formatMessage(
+                        'page.social_link_id_does_not_exists'
+                    )
+                })
+            }
+
+            pageSocialLink.merge({
+                url,
+                social_link_id
+            })
+            await pageSocialLink.save()
+
+            pageSocialLink = await transform.item(
+                pageSocialLink,
+                PageSocialLinkTransformer
+            )
+
+            return response.send({
+                success: true,
+                pageSocialLink
+            })
         } catch (error) {
             return response.status(500).send({
                 success: false,
                 error: antl.formatMessage('page.cannt_edit_social_link')
+            })
+        }
+    }
+
+    async deleteSocialNetwork({
+        params: { page_id, page_social_id },
+        response,
+        auth,
+        antl
+    }) {
+        try {
+            const user = await auth.getUser()
+            const page = await Page.findBy({ id: page_id, user_id: user.id })
+
+            if (!page) {
+                return response.status(400).send({
+                    success: false,
+                    error: antl.formatMessage('page.page_not_found')
+                })
+            }
+
+            const pageSocialLink = await PageSocialLink.findBy({
+                id: page_social_id,
+                page_id
+            })
+
+            if (!pageSocialLink) {
+                return response.status(400).send({
+                    success: false,
+                    error: antl.formatMessage(
+                        'page.social_link_id_does_not_exists'
+                    )
+                })
+            }
+
+            await pageSocialLink.delete()
+
+            return response.send({
+                success: true,
+                message: antl.formatMessage('page.page_social_link_deleted')
+            })
+        } catch (error) {
+            return response.status(500).send({
+                success: false,
+                error: antl.formatMessage('page.cannt_delete_social_link')
+            })
+        }
+    }
+
+    async reorderSocialNetwork({
+        params: { page_id },
+        request,
+        response,
+        auth,
+        transform,
+        antl
+    }) {
+        const { ids } = request.only(['ids'])
+        const trx = await Database.beginTransaction()
+
+        try {
+            const user = await auth.getUser()
+            const page = await Page.findBy(
+                {
+                    id: page_id,
+                    user_id: user.id
+                },
+                trx
+            )
+
+            if (!page) {
+                return response.status(404).send({
+                    success: false,
+                    error: antl.formatMessage('page.not_page_owner')
+                })
+            }
+
+            let display_order = 0
+
+            for (let id of ids) {
+                await PageSocialLink.query(trx)
+                    .where({ id, page_id })
+                    .update({ display_order })
+
+                display_order++
+            }
+
+            await trx.commit()
+
+            const pageSocialLinksRaw = await PageSocialLink.query()
+                .where('page_id', page_id)
+                .orderBy('display_order')
+                .fetch()
+
+            const pageSocialLinks = await transform.collection(
+                pageSocialLinksRaw,
+                PageSocialLinkTransformer
+            )
+
+            return response.send({
+                success: true,
+                pageSocialLinks,
+                message: antl.formatMessage('page.reordered_social_links')
+            })
+        } catch (error) {
+            await trx.rollback()
+            return response.status(500).send({
+                success: false,
+                error: antl.formatMessage('page.cannt_reorder_social_links')
             })
         }
     }

@@ -25,8 +25,13 @@ Route.group(() => {
     ).validator('Admin/Page/SocialLink')
 
     Route.delete(
-        '/page/:id/delete-social-network',
+        '/page/:page_id/delete-social-network/:page_social_id',
         'PageController.deleteSocialNetwork'
+    )
+
+    Route.put(
+        '/page/:page_id/reorder-social-network',
+        'PageController.reorderSocialNetwork'
     )
 
     Route.resource('page', 'PageController')

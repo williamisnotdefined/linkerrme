@@ -23,11 +23,12 @@ class PageSocialLinkTransformer extends BumblebeeTransformer {
     }
 
     transform(pageSocialLink) {
-        const { id, url } = pageSocialLink
+        const { id, url, display_order } = pageSocialLink
 
         return {
             id,
-            url
+            url,
+            display_order
         }
     }
 }

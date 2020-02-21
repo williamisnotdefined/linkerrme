@@ -20,14 +20,15 @@ class LinkTransformer extends BumblebeeTransformer {
     }
 
     transform(link) {
-        const { id, text, url, is_newsletter, is_active } = link
+        const { id, text, url, is_newsletter, is_active, display_order } = link
 
         return {
             id,
             text,
             url,
             is_newsletter,
-            is_active
+            is_active,
+            display_order
         }
     }
 }

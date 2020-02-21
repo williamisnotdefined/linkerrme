@@ -27,5 +27,9 @@
     "social_link_id_required": "Link social é obrigatório.",
     "social_link_id_does_not_exists": "Link social inválido.",
     "cannt_create_social_link": "Falha ao criar link social, tente novamente",
-    "cannt_edit_social_link": "Falha ao editar link social, tente novamente"
+    "cannt_edit_social_link": "Falha ao editar link social, tente novamente",
+    "cannt_delete_social_link": "Falha ao deletar link social, tente novamente",
+    "page_social_link_deleted": "Link social deletado com sucesso.",
+    "cannt_reorder_social_links": "Falha ao reordenar link social, tente novamente",
+    "reordered_social_links": "Links sociais ordenados com sucesso."
 }

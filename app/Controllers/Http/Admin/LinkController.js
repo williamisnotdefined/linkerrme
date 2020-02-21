@@ -226,7 +226,7 @@ class LinkController {
 
             const linksRaw = await Link.query()
                 .where('page_id', page.id)
-                .orderBy('id', 'display_order')
+                .orderBy('display_order')
                 .fetch()
 
             const links = await transform.collection(linksRaw, LinkTransformer)

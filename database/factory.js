@@ -44,6 +44,7 @@ Factory.blueprint('App/Models/PageSocialLink', (faker, i, data) => {
     return {
         url: faker.url(),
         social_link_id: data.social_link_id,
-        page_id: data.page_id
+        page_id: data.page_id,
+        display_order: data.display_order
     }
 })

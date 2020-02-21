@@ -59,17 +59,20 @@ class PageWithLinksAndSocialLinkSeeder {
 
                 await Factory.model('App/Models/PageSocialLink').create({
                     social_link_id: facebookSocialLink.id,
-                    page_id: page.id
+                    page_id: page.id,
+                    display_order: 0
                 })
 
                 await Factory.model('App/Models/PageSocialLink').create({
                     social_link_id: instagramSocialLink.id,
-                    page_id: page.id
+                    page_id: page.id,
+                    display_order: 1
                 })
 
                 await Factory.model('App/Models/PageSocialLink').create({
                     social_link_id: youtubeSocialLink.id,
-                    page_id: page.id
+                    page_id: page.id,
+                    display_order: 2
                 })
             })
         )
